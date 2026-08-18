@@ -95,8 +95,27 @@ struct SessionView: View {
 
         case .finished:
             SessionResultView(model: model) { dismiss() }
+                .task { await finishSession() }
         }
     }
+
+    /// Разрешение на уведомления запрашивается здесь, а не при первом запуске:
+    /// к этому моменту пользователь уже понимает, о чём его будут напоминать.
+    private func finishSession() async {
+        guard model.totalAnswered > 0 else { return }
+
+        let context = model.modelContext
+        if !UserDefaults.standard.bool(forKey: Self.didAskForNotificationsKey) {
+            UserDefaults.standard.set(true, forKey: Self.didAskForNotificationsKey)
+            let granted = await NotificationService.requestAuthorizationIfNeeded()
+            if granted {
+                UserDefaults.standard.set(true, forKey: SettingsKey.remindersEnabled)
+            }
+        }
+        await NotificationService.rescheduleReminders(in: context)
+    }
+
+    private static let didAskForNotificationsKey = "notifications.didAsk"
 }
 
 // MARK: - Передышка между блоками

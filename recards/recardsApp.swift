@@ -19,7 +19,20 @@ struct RecardsApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
+                .task {
+                    // Юнит-тесты запускают это же приложение как хост. Стартовые
+                    // побочные эффекты (уведомления, наполнение базы) в тестах не нужны
+                    // и мешают, поэтому под тестами пропускаются.
+                    guard !Self.isRunningTests else { return }
+                    let context = container.mainContext
+                    DemoDeckLoader.loadIfNeeded(into: context)
+                    await NotificationService.rescheduleReminders(in: context)
+                }
         }
         .modelContainer(container)
+    }
+
+    private static var isRunningTests: Bool {
+        ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
     }
 }

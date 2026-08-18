@@ -63,6 +63,9 @@ final class SessionViewModel {
     let mode: SessionMode
 
     private let context: ModelContext
+
+    /// Контекст нужен экрану итогов, чтобы перестроить расписание напоминаний.
+    var modelContext: ModelContext { context }
     private let scheduler: any Scheduler
     private var questionShownAt = Date()
 

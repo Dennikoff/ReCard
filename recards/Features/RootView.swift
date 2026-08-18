@@ -20,23 +20,10 @@ struct RootView: View {
 
             Tab("Настройки", systemImage: "gearshape") {
                 NavigationStack {
-                    PlaceholderView(title: "Настройки")
-                        .navigationTitle("Настройки")
+                    SettingsView()
                 }
             }
         }
-    }
-}
-
-private struct PlaceholderView: View {
-    let title: String
-
-    var body: some View {
-        ContentUnavailableView(
-            "Раздел «\(title)»",
-            systemImage: "hammer",
-            description: Text("Появится на следующем этапе.")
-        )
     }
 }
 
