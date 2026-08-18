@@ -8,8 +8,7 @@ struct RootView: View {
         TabView {
             Tab("Учить", systemImage: "graduationcap") {
                 NavigationStack {
-                    PlaceholderView(title: "Учить")
-                        .navigationTitle("Учить")
+                    HomeView()
                 }
             }
 
