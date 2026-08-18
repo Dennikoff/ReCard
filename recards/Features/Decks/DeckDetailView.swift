@@ -8,7 +8,7 @@ private enum WordFilter: String, CaseIterable, Identifiable {
 
     var id: String { rawValue }
 
-    var title: String {
+    var title: LocalizedStringKey {
         switch self {
         case .all: return "Все"
         case .new: return "Новые"

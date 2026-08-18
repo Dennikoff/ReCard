@@ -59,7 +59,7 @@ struct SessionResultView: View {
         }
     }
 
-    private func counter(_ value: Int, label: String, color: Color) -> some View {
+    private func counter(_ value: Int, label: LocalizedStringKey, color: Color) -> some View {
         VStack(spacing: 4) {
             Text("\(value)")
                 .font(.system(size: 34, weight: .bold, design: .rounded))

@@ -94,7 +94,7 @@ private struct CardProgressRow: View {
     let card: ReCard
     let direction: CardDirection
 
-    private var title: String {
+    private var title: LocalizedStringKey {
         switch direction {
         case .production: return "Перевод → слово"
         case .recognition: return "Слово → перевод"
@@ -120,7 +120,7 @@ private struct CardProgressRow: View {
         .padding(.vertical, 2)
     }
 
-    private var statusText: String {
+    private var statusText: LocalizedStringKey {
         if card.isArchived { return "выучено" }
         switch card.state {
         case .new: return "новое"

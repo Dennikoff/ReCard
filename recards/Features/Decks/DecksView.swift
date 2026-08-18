@@ -116,10 +116,10 @@ private struct CountersView: View {
         .font(.caption2)
     }
 
-    private func counter(_ value: Int, label: String, color: Color) -> some View {
+    private func counter(_ value: Int, label: LocalizedStringKey, color: Color) -> some View {
         HStack(spacing: 3) {
             Circle().fill(color).frame(width: 6, height: 6)
-            Text("\(value) \(label)")
+            Text("\(value) ") + Text(label)
                 .foregroundStyle(.secondary)
         }
     }

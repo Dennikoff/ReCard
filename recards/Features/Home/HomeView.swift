@@ -57,7 +57,7 @@ struct HomeView: View {
         }
     }
 
-    private func counter(_ value: Int, title: String, color: Color) -> some View {
+    private func counter(_ value: Int, title: LocalizedStringKey, color: Color) -> some View {
         VStack(spacing: 6) {
             Text("\(value)")
                 .font(.system(size: 32, weight: .bold, design: .rounded))
@@ -107,7 +107,7 @@ struct HomeView: View {
         }
     }
 
-    private func actionLabel(title: String, subtitle: String, systemImage: String) -> some View {
+    private func actionLabel(title: LocalizedStringKey, subtitle: LocalizedStringKey, systemImage: String) -> some View {
         HStack(spacing: 12) {
             Image(systemName: systemImage)
                 .font(.title3)
