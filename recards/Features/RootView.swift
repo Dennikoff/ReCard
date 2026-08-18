@@ -15,8 +15,7 @@ struct RootView: View {
 
             Tab("Колоды", systemImage: "rectangle.stack") {
                 NavigationStack {
-                    PlaceholderView(title: "Колоды")
-                        .navigationTitle("Колоды")
+                    DecksView()
                 }
             }
 

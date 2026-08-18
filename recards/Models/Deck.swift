@@ -47,4 +47,52 @@ extension Deck {
     var sortedWords: [Word] {
         (words ?? []).sorted { $0.createdAt < $1.createdAt }
     }
+
+    /// Слова, к изучению которых пользователь ещё не приступал.
+    var newWordsCount: Int {
+        (words ?? []).count { $0.isNew }
+    }
+
+    /// Слова в работе: начатые, но ещё не выученные.
+    var learningWordsCount: Int {
+        (words ?? []).count { !$0.isNew && !$0.isLearned }
+    }
+
+    var learnedWordsCount: Int {
+        (words ?? []).count(where: \.isLearned)
+    }
+
+    /// Пара языков в человекочитаемом виде, например «немецкий → русский».
+    var languagePairDescription: String {
+        let source = LanguageCatalog.displayName(for: sourceLanguage)
+        let target = LanguageCatalog.displayName(for: targetLanguage)
+        return "\(source) → \(target)"
+    }
+
+    /// Нормализованные тексты слов — для отсева дубликатов при импорте.
+    var existingWordKeys: Set<String> {
+        Set((words ?? []).map { AnswerChecker.normalize($0.text) })
+    }
+
+    /// Файловое представление колоды для экспорта и резервной копии.
+    var payload: DeckPayload {
+        DeckPayload(
+            name: name,
+            sourceLanguage: sourceLanguage,
+            targetLanguage: targetLanguage,
+            words: sortedWords.map(\.payload)
+        )
+    }
+}
+
+extension Word {
+    var payload: WordPayload {
+        WordPayload(
+            word: text,
+            translations: translations,
+            transcription: transcription,
+            example: example,
+            exampleTranslation: exampleTranslation
+        )
+    }
 }
