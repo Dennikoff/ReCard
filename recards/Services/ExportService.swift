@@ -23,7 +23,7 @@ nonisolated enum ExportService {
 
     /// Формирует содержимое CSV по правилам RFC 4180.
     static func makeCSV(_ payload: DeckPayload) -> String {
-        var rows = ["word,translation,transcription,example,exampleTranslation"]
+        var rows = ["word,translation,transcription,example,exampleTranslation,partOfSpeech"]
 
         for word in payload.words {
             let fields = [
@@ -32,6 +32,7 @@ nonisolated enum ExportService {
                 word.transcription ?? "",
                 word.example ?? "",
                 word.exampleTranslation ?? "",
+                word.partOfSpeech ?? "",
             ]
             rows.append(fields.map(escape).joined(separator: ","))
         }

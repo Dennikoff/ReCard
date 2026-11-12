@@ -32,7 +32,8 @@ private func makeDeck(in context: ModelContext, name: String = "Тест", start
             translations: ["слово\(index)", "вариант\(index)"],
             transcription: "/w\(index)/",
             example: "Beispiel \(index).",
-            exampleTranslation: "Пример \(index)."
+            exampleTranslation: "Пример \(index).",
+            partOfSpeech: .noun
         )
         // Разнесённые даты создания задают устойчивый порядок сортировки слов.
         word.createdAt = Date(timeIntervalSince1970: 1_700_000_000 + Double(index))
@@ -100,6 +101,7 @@ struct BackupServiceTests {
         #expect(word.translations.count == 2)
         #expect(word.startedAt != nil)
         #expect(word.transcription == "/w0/")
+        #expect(word.partOfSpeech == .noun)
         #expect((word.cards ?? []).count == 1)
 
         let card = try #require(word.card)
@@ -175,6 +177,32 @@ struct BackupServiceTests {
         #expect(words.allSatisfy { $0.card?.stability == 12.5 }, "Состояние берётся из прямой карточки")
     }
 
+    @Test("Демо-словам без части речи она проставляется из бандла")
+    func demoWordsGetPartOfSpeech() throws {
+        let container = try makeContainer()
+        let context = container.mainContext
+        let deck = Deck(name: "Демо", sourceLanguage: "de-DE", targetLanguage: "ru-RU", isBuiltIn: true)
+        context.insert(deck)
+        let hund = Word(text: "der Hund", translations: ["собака", "пёс"])
+        let custom = Word(text: "der Hund", translations: ["псина"])
+        for word in [hund, custom] {
+            word.deck = deck
+            context.insert(word)
+            deck.words = (deck.words ?? []) + [word]
+        }
+        try context.save()
+
+        let key = "demoDecks.partsOfSpeechFilled"
+        let previous = UserDefaults.standard.object(forKey: key)
+        UserDefaults.standard.removeObject(forKey: key)
+        defer { UserDefaults.standard.set(previous, forKey: key) }
+
+        DemoDeckLoader.fillPartsOfSpeechIfNeeded(in: context)
+
+        #expect(hund.partOfSpeech == .noun)
+        #expect(custom.partOfSpeech == nil, "Слова, которых нет в бандле, не трогаются")
+    }
+
     @Test("Миграция удаляет обратные карточки и оставляет прямые")
     func migrationRemovesRecognitionCards() throws {
         let container = try makeContainer()
@@ -208,6 +236,10 @@ struct BackupServiceTests {
             // Иначе часть слов, например совпадающие формы глагола, потерялась бы при импорте.
             let keys = Set(payload.words.map { WordKey.make(text: $0.word, translations: $0.translations) })
             #expect(keys.count == payload.words.count, "В демо-колоде \(name) есть дубликаты")
+            #expect(
+                payload.words.allSatisfy { PartOfSpeech(code: $0.partOfSpeech) != nil },
+                "У каждого слова демо-колоды \(name) должна быть часть речи"
+            )
         }
     }
 }

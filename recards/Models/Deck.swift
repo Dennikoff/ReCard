@@ -92,7 +92,8 @@ extension Word {
             translations: translations,
             transcription: transcription,
             example: example,
-            exampleTranslation: exampleTranslation
+            exampleTranslation: exampleTranslation,
+            partOfSpeech: partOfSpeechRaw
         )
     }
 }

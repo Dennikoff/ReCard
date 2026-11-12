@@ -27,6 +27,7 @@ struct RecardsApp: App {
                     let context = container.mainContext
                     CardMigration.removeRecognitionCards(in: context)
                     DemoDeckLoader.loadIfNeeded(into: context)
+                    DemoDeckLoader.fillPartsOfSpeechIfNeeded(in: context)
                     await NotificationService.rescheduleReminders(in: context)
                 }
         }

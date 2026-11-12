@@ -253,8 +253,10 @@ struct ExportServiceTests {
                 translations: ["собака", "пёс"],
                 transcription: "/hʊnt/",
                 example: "Der Hund bellt.",
-                exampleTranslation: "Собака лает."
+                exampleTranslation: "Собака лает.",
+                partOfSpeech: "noun"
             ),
+            WordPayload(word: "liest", translations: ["читать (du)"], partOfSpeech: "verb"),
         ]
     )
 
@@ -301,5 +303,46 @@ struct ExportServiceTests {
         #expect(ExportService.fileName(for: "Немецкий A1", extension: "json") == "Немецкий A1.json")
         #expect(ExportService.fileName(for: "a/b:c", extension: "csv") == "a-b-c.csv")
         #expect(ExportService.fileName(for: "   ", extension: "json") == "deck.json")
+    }
+}
+
+@Suite("Часть речи в файлах")
+struct PartOfSpeechImportTests {
+
+    @Test("Код разбирается без учёта регистра и пробелов, неизвестный отбрасывается")
+    func codeParsing() {
+        #expect(PartOfSpeech(code: " Verb ") == .verb)
+        #expect(PartOfSpeech(code: "noun") == .noun)
+        #expect(PartOfSpeech(code: "глагол") == nil)
+        #expect(PartOfSpeech(code: "") == nil)
+        #expect(PartOfSpeech(code: nil) == nil)
+    }
+
+    @Test("Шестая колонка CSV — часть речи")
+    func csvColumn() {
+        let input = """
+        word,translation,transcription,example,exampleTranslation,partOfSpeech
+        der Hund,собака,,,,noun
+        liest,читать (du),,,,VERB
+        gut,хороший,,,,прилагательное
+        die Katze,кошка
+        """
+
+        let result = ImportService.parse(input)
+
+        #expect(result.words.map(\.partOfSpeech) == ["noun", "verb", nil, nil])
+        #expect(result.skipped.isEmpty, "Неизвестный код не повод пропускать слово")
+    }
+
+    @Test("Неизвестный код в JSON не ломает разбор файла")
+    func jsonUnknownCode() {
+        let input = """
+        [{"word": "gut", "translations": ["хороший"], "partOfSpeech": "adj"},
+         {"word": "gehen", "translations": ["идти"], "partOfSpeech": "verb"}]
+        """
+
+        let result = ImportService.parse(input)
+
+        #expect(result.words.map(\.partOfSpeech) == [nil, "verb"])
     }
 }

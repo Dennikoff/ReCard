@@ -17,6 +17,9 @@ struct WordDetailView: View {
                 if let transcription = word.transcription {
                     LabeledContent("Транскрипция", value: transcription)
                 }
+                if let kind = word.partOfSpeech {
+                    LabeledContent("Часть речи") { Text(kind.title) }
+                }
             }
 
             if let example = word.example {

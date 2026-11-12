@@ -29,6 +29,20 @@ nonisolated enum LanguageCatalog {
         }
     }
 
+    /// Языки, подходящие под поисковый запрос.
+    ///
+    /// Ищется по названию и по коду (`de`, `de-AT`) без учёта регистра и диакритики.
+    /// Пустой запрос возвращает список целиком.
+    static func filter(_ languages: [LanguageOption], query: String) -> [LanguageOption] {
+        let query = query.trimmingCharacters(in: .whitespaces)
+        guard !query.isEmpty else { return languages }
+        let compare: String.CompareOptions = [.caseInsensitive, .diacriticInsensitive]
+        return languages.filter {
+            $0.displayName.range(of: query, options: compare) != nil
+                || $0.code.range(of: query, options: compare) != nil
+        }
+    }
+
     /// Человекочитаемое название языка. При неудаче возвращается сам код.
     static func displayName(for code: String, locale: Locale = .current) -> String {
         locale.localizedString(forIdentifier: code)

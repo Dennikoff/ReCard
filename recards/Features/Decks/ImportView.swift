@@ -179,7 +179,8 @@ struct ImportPreviewView: View {
                 translations: payload.translations,
                 transcription: payload.transcription,
                 example: payload.example,
-                exampleTranslation: payload.exampleTranslation
+                exampleTranslation: payload.exampleTranslation,
+                partOfSpeech: PartOfSpeech(code: payload.partOfSpeech)
             )
             word.deck = deck
             context.insert(word)

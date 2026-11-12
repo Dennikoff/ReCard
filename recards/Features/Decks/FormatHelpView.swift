@@ -8,9 +8,10 @@ struct FormatHelpView: View {
     @Environment(\.dismiss) private var dismiss
 
     private static let csvSample = """
-    word,translation,transcription,example,exampleTranslation
-    der Hund,собака;пёс,/hʊnt/,Der Hund bellt.,Собака лает.
-    die Katze,кошка,/ˈkatsə/,,
+    word,translation,transcription,example,exampleTranslation,partOfSpeech
+    der Hund,собака;пёс,/hʊnt/,Der Hund bellt.,Собака лает.,noun
+    die Katze,кошка,/ˈkatsə/,,,noun
+    liest,читать (du),,,,verb
     """
 
     private static let jsonSample = """
@@ -24,7 +25,8 @@ struct FormatHelpView: View {
           "translations": ["собака", "пёс"],
           "transcription": "/hʊnt/",
           "example": "Der Hund bellt.",
-          "exampleTranslation": "Собака лает."
+          "exampleTranslation": "Собака лает.",
+          "partOfSpeech": "noun"
         }
       ]
     }
@@ -40,13 +42,14 @@ struct FormatHelpView: View {
         Изучаемый язык: [например, немецкий]. Язык перевода: [например, русский]. Тема и уровень: [например, еда, A1]. Количество слов: [например, 50].
 
         Формат — CSV в UTF-8, первая строка — заголовок:
-        word,translation,transcription,example,exampleTranslation
+        word,translation,transcription,example,exampleTranslation,partOfSpeech
 
         Правила:
         - word — слово на изучаемом языке. Существительные пиши с артиклем, если он есть в языке: der Hund.
         - translation — перевод. Несколько переводов (синонимы) — в одном поле через точку с запятой: собака;пёс. Не разноси синонимы по разным строкам.
         - transcription — IPA в косых чертах: /hʊnt/. Для форм глагола оставляй пустым.
         - example и exampleTranslation — короткий пример со словом и его перевод. Для форм глагола оставляй пустыми.
+        - partOfSpeech — часть речи, одно из значений: noun (существительное), verb (глагол), adjective (прилагательное), other (всё остальное). У форм глагола тоже verb.
         - Значения с запятой внутри заключай в двойные кавычки.
         - Глаголы: сначала инфинитив отдельной строкой с обычным переводом (lesen,читать). Затем каждая форма настоящего времени — своей строкой, без местоимения, а лица указаны в скобках в переводе: lese,читать (ich).
         - Для немецкого группы лиц такие: ich; du; er/sie/es; ihr; wir/sie/Sie. Строка wir/sie/Sie нужна, даже если её форма совпадает с инфинитивом.
@@ -64,6 +67,7 @@ struct FormatHelpView: View {
                 Text("Несколько переводов разделяются знаком «;» — при проверке засчитывается любой из них.")
                 Text("Артикль пишется вместе со словом: «der Hund».")
                 Text("Глагол: инфинитив отдельной строкой, затем каждая форма — своей строкой, а лицо указывается в скобках в переводе: «liest,читать (du)».")
+                Text("Часть речи — необязательная шестая колонка: noun, verb, adjective или other. По ней подбираются варианты в упражнении с выбором перевода.")
             } header: {
                 Text("Правила")
             }

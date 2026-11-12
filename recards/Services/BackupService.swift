@@ -24,6 +24,8 @@ nonisolated struct BackupWord: Codable, Equatable, Sendable {
     var transcription: String?
     var example: String?
     var exampleTranslation: String?
+    /// Код `PartOfSpeech`. Необязателен: копии старых версий его не содержат.
+    var partOfSpeech: String?
     var createdAt: Date
     var startedAt: Date?
     var cards: [BackupCard]
@@ -82,6 +84,7 @@ enum BackupService {
             transcription: word.transcription,
             example: word.example,
             exampleTranslation: word.exampleTranslation,
+            partOfSpeech: word.partOfSpeechRaw,
             createdAt: word.createdAt,
             startedAt: word.startedAt,
             cards: [word.card].compactMap { $0 }.map { card in
@@ -142,7 +145,8 @@ enum BackupService {
                     translations: backupWord.translations,
                     transcription: backupWord.transcription,
                     example: backupWord.example,
-                    exampleTranslation: backupWord.exampleTranslation
+                    exampleTranslation: backupWord.exampleTranslation,
+                    partOfSpeech: PartOfSpeech(code: backupWord.partOfSpeech)
                 )
                 word.createdAt = backupWord.createdAt
                 word.startedAt = backupWord.startedAt

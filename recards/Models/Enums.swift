@@ -10,6 +10,34 @@ nonisolated enum CardDirection: String, Codable, CaseIterable, Sendable {
     case recognition
 }
 
+/// Часть речи слова. Нужна только для подбора отвлекающих вариантов в режиме выбора:
+/// к существительному — существительные, к глаголу — глаголы.
+///
+/// Сырые значения — коды в файлах импорта и экспорта.
+nonisolated enum PartOfSpeech: String, Codable, CaseIterable, Sendable {
+    case noun
+    case verb
+    case adjective
+    case other
+
+    /// Название для интерфейса.
+    var title: LocalizedStringResource {
+        switch self {
+        case .noun: return "Существительное"
+        case .verb: return "Глагол"
+        case .adjective: return "Прилагательное"
+        case .other: return "Другое"
+        }
+    }
+
+    /// Разбирает код из файла: регистр и пробелы не важны, неизвестный код — `nil`.
+    init?(code: String?) {
+        guard let code = code?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased(),
+              let value = PartOfSpeech(rawValue: code) else { return nil }
+        self = value
+    }
+}
+
 /// Состояние карточки в терминах интервального повторения.
 ///
 /// Дублирует `FSRS.CardState`, чтобы типы пакета не протекали за пределы `FSRSScheduler`.

@@ -132,7 +132,8 @@ nonisolated enum ImportService {
                 translations: translations,
                 transcription: field(fields, at: 2),
                 example: field(fields, at: 3),
-                exampleTranslation: field(fields, at: 4)
+                exampleTranslation: field(fields, at: 4),
+                partOfSpeech: field(fields, at: 5)
             )
             candidates.append((number, payload, raw))
         }

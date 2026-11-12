@@ -9,6 +9,7 @@ import SwiftData
 enum DemoDeckLoader {
 
     private static let hasLoadedKey = "demoDecks.loaded"
+    private static let hasFilledPartsOfSpeechKey = "demoDecks.partsOfSpeechFilled"
     private static let fileNames = ["de_ru_a1", "en_ru_a1"]
 
     /// Наполняет пустое хранилище демо-колодами ровно один раз.
@@ -31,6 +32,30 @@ enum DemoDeckLoader {
 
         try? context.save()
         UserDefaults.standard.set(true, forKey: hasLoadedKey)
+    }
+
+    /// Проставляет часть речи словам демо-колод, загруженных до появления этого поля.
+    ///
+    /// Слово сопоставляется с записью из бандла по `WordKey`. Слова, которые пользователь
+    /// переименовал или добавил сам, не трогаются. Выполняется один раз.
+    static func fillPartsOfSpeechIfNeeded(in context: ModelContext) {
+        guard !UserDefaults.standard.bool(forKey: hasFilledPartsOfSpeechKey) else { return }
+
+        var known: [String: PartOfSpeech] = [:]
+        for name in fileNames {
+            for item in loadPayload(named: name)?.words ?? [] {
+                guard let kind = PartOfSpeech(code: item.partOfSpeech) else { continue }
+                known[WordKey.make(text: item.word, translations: item.translations)] = kind
+            }
+        }
+
+        let decks = (try? context.fetch(FetchDescriptor<Deck>())) ?? []
+        for word in decks.filter(\.isBuiltIn).flatMap({ $0.words ?? [] }) where word.partOfSpeech == nil {
+            word.partOfSpeech = known[WordKey.make(text: word.text, translations: word.translations)]
+        }
+
+        try? context.save()
+        UserDefaults.standard.set(true, forKey: hasFilledPartsOfSpeechKey)
     }
 
     static func loadPayload(named name: String) -> DeckPayload? {
@@ -58,7 +83,8 @@ enum DemoDeckLoader {
                 translations: normalized.translations,
                 transcription: normalized.transcription,
                 example: normalized.example,
-                exampleTranslation: normalized.exampleTranslation
+                exampleTranslation: normalized.exampleTranslation,
+                partOfSpeech: PartOfSpeech(code: normalized.partOfSpeech)
             )
             word.deck = deck
             context.insert(word)

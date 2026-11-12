@@ -68,11 +68,13 @@ struct DeckFormView: View {
         .task { loadInitialState() }
     }
 
-    private func languagePicker(_ title: String, selection: Binding<String>) -> some View {
-        Picker(title, selection: selection) {
-            ForEach(languages) { language in
-                Text(language.displayName).tag(language.code)
-            }
+    /// Выбор языка на отдельном экране: системный `Picker` не умеет искать,
+    /// а голосов в системе — десятки языков с вариантами по странам.
+    private func languagePicker(_ title: LocalizedStringKey, selection: Binding<String>) -> some View {
+        NavigationLink {
+            LanguageSelectionView(title: title, languages: languages, selection: selection)
+        } label: {
+            LabeledContent(title, value: displayName(selection.wrappedValue))
         }
     }
 
@@ -116,6 +118,55 @@ struct DeckFormView: View {
         }
 
         dismiss()
+    }
+}
+
+// MARK: - Выбор языка
+
+private struct LanguageSelectionView: View {
+    @Environment(\.dismiss) private var dismiss
+
+    let title: LocalizedStringKey
+    let languages: [LanguageOption]
+    @Binding var selection: String
+
+    @State private var query = ""
+
+    private var filtered: [LanguageOption] {
+        LanguageCatalog.filter(languages, query: query)
+    }
+
+    var body: some View {
+        List(filtered) { language in
+            Button {
+                selection = language.code
+                dismiss()
+            } label: {
+                HStack {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(language.displayName)
+                            .foregroundStyle(.primary)
+                        Text(language.code)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    if language.code == selection {
+                        Image(systemName: "checkmark")
+                            .foregroundStyle(.tint)
+                    }
+                }
+            }
+        }
+        .overlay {
+            if filtered.isEmpty {
+                ContentUnavailableView.search(text: query)
+            }
+        }
+        .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск языка")
+        .autocorrectionDisabled()
+        .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

@@ -19,6 +19,7 @@ struct WordFormView: View {
     @State private var transcription = ""
     @State private var example = ""
     @State private var exampleTranslation = ""
+    @State private var partOfSpeech: PartOfSpeech?
     @State private var duplicateWarning: String?
 
     private var isEditing: Bool { word != nil }
@@ -54,6 +55,17 @@ struct WordFormView: View {
                 }
             }
 
+            Section {
+                Picker("Часть речи", selection: $partOfSpeech) {
+                    Text("Не указана").tag(PartOfSpeech?.none)
+                    ForEach(PartOfSpeech.allCases, id: \.self) { kind in
+                        Text(kind.title).tag(PartOfSpeech?.some(kind))
+                    }
+                }
+            } footer: {
+                Text("В упражнении с выбором перевода варианты подбираются той же части речи.")
+            }
+
             Section("Необязательно") {
                 TextField("Транскрипция", text: $transcription)
                     .textInputAutocapitalization(.never)
@@ -84,6 +96,7 @@ struct WordFormView: View {
         transcription = word.transcription ?? ""
         example = word.example ?? ""
         exampleTranslation = word.exampleTranslation ?? ""
+        partOfSpeech = word.partOfSpeech
     }
 
     /// Предупреждение о дубликате не блокирует сохранение — решает пользователь.
@@ -116,13 +129,15 @@ struct WordFormView: View {
             word.transcription = cleaned(transcription)
             word.example = cleaned(example)
             word.exampleTranslation = cleaned(exampleTranslation)
+            word.partOfSpeech = partOfSpeech
         } else if let deck {
             let word = Word(
                 text: trimmedText,
                 translations: translations,
                 transcription: cleaned(transcription),
                 example: cleaned(example),
-                exampleTranslation: cleaned(exampleTranslation)
+                exampleTranslation: cleaned(exampleTranslation),
+                partOfSpeech: partOfSpeech
             )
             word.deck = deck
             context.insert(word)

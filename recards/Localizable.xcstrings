@@ -145,6 +145,16 @@
         }
       }
     },
+    "В упражнении с выбором перевода варианты подбираются той же части речи." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In the multiple-choice exercise, options are picked from the same part of speech."
+          }
+        }
+      }
+    },
     "Верно" : {
       "localizations" : {
         "en" : {
@@ -316,6 +326,16 @@
         }
       }
     },
+    "Глагол" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verb"
+          }
+        }
+      }
+    },
     "Глагол: инфинитив отдельной строкой, затем каждая форма — своей строкой, а лицо указывается в скобках в переводе: «liest,читать (du)»." : {
       "localizations" : {
         "en" : {
@@ -403,6 +423,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add words manually or import a list file."
+          }
+        }
+      }
+    },
+    "Другое" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other"
           }
         }
       }
@@ -709,6 +739,16 @@
         }
       }
     },
+    "Не указана" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not set"
+          }
+        }
+      }
+    },
     "Неверно" : {
       "localizations" : {
         "en" : {
@@ -1009,6 +1049,16 @@
         }
       }
     },
+    "Поиск языка" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search languages"
+          }
+        }
+      }
+    },
     "Пока нет колод" : {
       "localizations" : {
         "en" : {
@@ -1085,6 +1135,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Preview"
+          }
+        }
+      }
+    },
+    "Прилагательное" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adjective"
           }
         }
       }
@@ -1381,12 +1441,12 @@
         }
       }
     },
-    "Составь колоду карточек для приложения Recards.\n\nИзучаемый язык: [например, немецкий]. Язык перевода: [например, русский]. Тема и уровень: [например, еда, A1]. Количество слов: [например, 50].\n\nФормат — CSV в UTF-8, первая строка — заголовок:\nword,translation,transcription,example,exampleTranslation\n\nПравила:\n- word — слово на изучаемом языке. Существительные пиши с артиклем, если он есть в языке: der Hund.\n- translation — перевод. Несколько переводов (синонимы) — в одном поле через точку с запятой: собака;пёс. Не разноси синонимы по разным строкам.\n- transcription — IPA в косых чертах: /hʊnt/. Для форм глагола оставляй пустым.\n- example и exampleTranslation — короткий пример со словом и его перевод. Для форм глагола оставляй пустыми.\n- Значения с запятой внутри заключай в двойные кавычки.\n- Глаголы: сначала инфинитив отдельной строкой с обычным переводом (lesen,читать). Затем каждая форма настоящего времени — своей строкой, без местоимения, а лица указаны в скобках в переводе: lese,читать (ich).\n- Для немецкого группы лиц такие: ich; du; er/sie/es; ihr; wir/sie/Sie. Строка wir/sie/Sie нужна, даже если её форма совпадает с инфинитивом.\n- Для других языков группируй лица по их грамматике: лица с одинаковой формой — в одной строке через косую черту, а если формы для «он» и «она» различаются, это разные строки.\n- Одинаковое слово с разными переводами — это нормально (will для ich и для er/sie/es). Не повторяй только строки, где совпадают и слово, и перевод.\n\nВыведи только CSV, без пояснений." : {
+    "Составь колоду карточек для приложения Recards.\n\nИзучаемый язык: [например, немецкий]. Язык перевода: [например, русский]. Тема и уровень: [например, еда, A1]. Количество слов: [например, 50].\n\nФормат — CSV в UTF-8, первая строка — заголовок:\nword,translation,transcription,example,exampleTranslation,partOfSpeech\n\nПравила:\n- word — слово на изучаемом языке. Существительные пиши с артиклем, если он есть в языке: der Hund.\n- translation — перевод. Несколько переводов (синонимы) — в одном поле через точку с запятой: собака;пёс. Не разноси синонимы по разным строкам.\n- transcription — IPA в косых чертах: /hʊnt/. Для форм глагола оставляй пустым.\n- example и exampleTranslation — короткий пример со словом и его перевод. Для форм глагола оставляй пустыми.\n- partOfSpeech — часть речи, одно из значений: noun (существительное), verb (глагол), adjective (прилагательное), other (всё остальное). У форм глагола тоже verb.\n- Значения с запятой внутри заключай в двойные кавычки.\n- Глаголы: сначала инфинитив отдельной строкой с обычным переводом (lesen,читать). Затем каждая форма настоящего времени — своей строкой, без местоимения, а лица указаны в скобках в переводе: lese,читать (ich).\n- Для немецкого группы лиц такие: ich; du; er/sie/es; ihr; wir/sie/Sie. Строка wir/sie/Sie нужна, даже если её форма совпадает с инфинитивом.\n- Для других языков группируй лица по их грамматике: лица с одинаковой формой — в одной строке через косую черту, а если формы для «он» и «она» различаются, это разные строки.\n- Одинаковое слово с разными переводами — это нормально (will для ich и для er/sie/es). Не повторяй только строки, где совпадают и слово, и перевод.\n\nВыведи только CSV, без пояснений." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create a flashcard deck for the Recards app.\n\nLanguage to learn: [e.g., German]. Translation language: [e.g., English]. Topic and level: [e.g., food, A1]. Number of words: [e.g., 50].\n\nFormat: CSV in UTF-8, the first line is the header:\nword,translation,transcription,example,exampleTranslation\n\nRules:\n- word is the word in the language being learned. Write nouns with their article if the language has one: der Hund.\n- translation is the translation. Several translations (synonyms) go in one field separated by semicolons: dog;hound. Do not split synonyms across rows.\n- transcription is IPA between slashes: /hʊnt/. Leave it empty for verb forms.\n- example and exampleTranslation are a short example with the word and its translation. Leave them empty for verb forms.\n- Wrap values that contain a comma in double quotes.\n- Verbs: first the infinitive on its own row with a plain translation (lesen,to read). Then each present-tense form on its own row, without the pronoun, with the persons in parentheses in the translation: lese,to read (ich).\n- For German, the person groups are: ich; du; er/sie/es; ihr; wir/sie/Sie. The wir/sie/Sie row is required even if its form matches the infinitive.\n- For other languages, group persons according to their grammar: persons with the same form go in one row separated by a slash, and if the forms for \"he\" and \"she\" differ, they are separate rows.\n- The same word with different translations is fine (will for ich and for er/sie/es). Only avoid rows where both the word and the translation repeat.\n\nOutput only the CSV, with no explanations."
+            "value" : "Create a flashcard deck for the Recards app.\n\nLanguage to learn: [e.g., German]. Translation language: [e.g., English]. Topic and level: [e.g., food, A1]. Number of words: [e.g., 50].\n\nFormat: CSV in UTF-8, the first line is the header:\nword,translation,transcription,example,exampleTranslation,partOfSpeech\n\nRules:\n- word is the word in the language being learned. Write nouns with their article if the language has one: der Hund.\n- translation is the translation. Several translations (synonyms) go in one field separated by semicolons: dog;hound. Do not split synonyms across rows.\n- transcription is IPA between slashes: /hʊnt/. Leave it empty for verb forms.\n- example and exampleTranslation are a short example with the word and its translation. Leave them empty for verb forms.\n- partOfSpeech — the part of speech, one of: noun, verb, adjective, other (everything else). Verb forms are verb too.\n- Wrap values that contain a comma in double quotes.\n- Verbs: first the infinitive on its own row with a plain translation (lesen,to read). Then each present-tense form on its own row, without the pronoun, with the persons in parentheses in the translation: lese,to read (ich).\n- For German, the person groups are: ich; du; er/sie/es; ihr; wir/sie/Sie. The wir/sie/Sie row is required even if its form matches the infinitive.\n- For other languages, group persons according to their grammar: persons with the same form go in one row separated by a slash, and if the forms for \"he\" and \"she\" differ, they are separate rows.\n- The same word with different translations is fine (will for ich and for er/sie/es). Only avoid rows where both the word and the translation repeat.\n\nOutput only the CSV, with no explanations."
           }
         }
       }
@@ -1427,6 +1487,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rows without a word or translation are skipped."
+          }
+        }
+      }
+    },
+    "Существительное" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noun"
           }
         }
       }
@@ -1620,6 +1690,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "File Format"
+          }
+        }
+      }
+    },
+    "Часть речи" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Part of speech"
+          }
+        }
+      }
+    },
+    "Часть речи — необязательная шестая колонка: noun, verb, adjective или other. По ней подбираются варианты в упражнении с выбором перевода." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Part of speech is an optional sixth column: noun, verb, adjective or other. It is used to pick options in the multiple-choice exercise."
           }
         }
       }

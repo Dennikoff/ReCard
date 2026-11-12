@@ -14,6 +14,8 @@ final class Word {
     var transcription: String? = nil
     var example: String? = nil
     var exampleTranslation: String? = nil
+    /// Сырое значение `PartOfSpeech`; `nil` — не указана.
+    var partOfSpeechRaw: String? = nil
 
     var createdAt: Date = Date()
     /// Момент, когда слово вышло из состояния «новое». Используется для дневного лимита новых слов.
@@ -29,7 +31,8 @@ final class Word {
         translations: [String],
         transcription: String? = nil,
         example: String? = nil,
-        exampleTranslation: String? = nil
+        exampleTranslation: String? = nil,
+        partOfSpeech: PartOfSpeech? = nil
     ) {
         self.id = UUID()
         self.text = text
@@ -37,6 +40,7 @@ final class Word {
         self.transcription = transcription
         self.example = example
         self.exampleTranslation = exampleTranslation
+        self.partOfSpeechRaw = partOfSpeech?.rawValue
         self.createdAt = Date()
         self.cards = []
     }
@@ -44,6 +48,11 @@ final class Word {
 
 extension Word {
     var isNew: Bool { startedAt == nil }
+
+    var partOfSpeech: PartOfSpeech? {
+        get { PartOfSpeech(code: partOfSpeechRaw) }
+        set { partOfSpeechRaw = newValue?.rawValue }
+    }
 
     /// Слово выучено, когда его карточка уехала в архив.
     var isLearned: Bool { card?.isArchived ?? false }

@@ -10,19 +10,24 @@ nonisolated struct WordPayload: Codable, Equatable, Hashable, Sendable {
     var transcription: String?
     var example: String?
     var exampleTranslation: String?
+    /// Код `PartOfSpeech`. Строка, а не перечисление: неизвестный код в файле
+    /// не должен ронять разбор всего файла — он просто отбрасывается.
+    var partOfSpeech: String?
 
     init(
         word: String,
         translations: [String],
         transcription: String? = nil,
         example: String? = nil,
-        exampleTranslation: String? = nil
+        exampleTranslation: String? = nil,
+        partOfSpeech: String? = nil
     ) {
         self.word = word
         self.translations = translations
         self.transcription = transcription
         self.example = example
         self.exampleTranslation = exampleTranslation
+        self.partOfSpeech = partOfSpeech
     }
 }
 
@@ -57,7 +62,8 @@ nonisolated extension WordPayload {
                 .filter { !$0.isEmpty },
             transcription: cleaned(transcription),
             example: cleaned(example),
-            exampleTranslation: cleaned(exampleTranslation)
+            exampleTranslation: cleaned(exampleTranslation),
+            partOfSpeech: PartOfSpeech(code: partOfSpeech)?.rawValue
         )
     }
 }

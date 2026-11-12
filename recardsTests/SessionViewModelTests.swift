@@ -448,6 +448,80 @@ struct DistractorTests {
         #expect(accepted.count == word.translations.count + 1, "Чужие слова не примешиваются")
     }
 
+    @Test("К существительному подбираются существительные")
+    func nounGetsNouns() throws {
+        let environment = try TestEnvironment(wordCount: 0)
+        let deck = environment.deck
+        let word = addWord("der Hund", "собака", .noun, to: deck, in: environment.context)
+        for (text, translation) in [("die Katze", "кошка"), ("das Haus", "дом"), ("der Tisch", "стол")] {
+            addWord(text, translation, .noun, to: deck, in: environment.context)
+        }
+        for (text, translation) in [("gehen", "идти"), ("lesen", "читать"), ("trinken", "пить")] {
+            addWord(text, translation, .verb, to: deck, in: environment.context)
+        }
+
+        for _ in 0..<10 {
+            let distractors = SessionService.distractors(for: word, in: environment.context)
+            #expect(Set(distractors) == ["кошка", "дом", "стол"])
+        }
+    }
+
+    @Test("К форме глагола — формы с тем же лицом")
+    func verbFormGetsSamePerson() throws {
+        let environment = try TestEnvironment(wordCount: 0)
+        let deck = environment.deck
+        let word = addWord("willst", "хотеть (du)", .verb, to: deck, in: environment.context)
+        for (text, translation) in [("gehst", "идти (du)"), ("liest", "читать (du)"), ("trinkst", "пить (du)"),
+                                    ("geht", "идти (er/sie/es)"), ("lesen", "читать"), ("der Hund", "собака")] {
+            addWord(text, translation, text == "der Hund" ? .noun : .verb, to: deck, in: environment.context)
+        }
+
+        let distractors = SessionService.distractors(for: word, in: environment.context)
+
+        #expect(Set(distractors) == ["идти (du)", "читать (du)", "пить (du)"])
+    }
+
+    @Test("Своей части речи не хватает — варианты добираются из других")
+    func fallsBackToOtherKinds() throws {
+        let environment = try TestEnvironment(wordCount: 0)
+        let deck = environment.deck
+        let word = addWord("gut", "хороший", .adjective, to: deck, in: environment.context)
+        addWord("schlecht", "плохой", .adjective, to: deck, in: environment.context)
+        for (text, translation) in [("der Hund", "собака"), ("gehen", "идти"), ("das Haus", "дом")] {
+            addWord(text, translation, text == "gehen" ? .verb : .noun, to: deck, in: environment.context)
+        }
+
+        for _ in 0..<10 {
+            let distractors = SessionService.distractors(for: word, in: environment.context)
+            #expect(distractors.count == 3)
+            #expect(distractors.first == "плохой", "Своя часть речи идёт первой")
+        }
+    }
+
+    @Test("Пометка лица извлекается из скобок в конце перевода")
+    func personTagParsing() {
+        #expect(SessionService.personTag(of: "хотеть (du)") == "du")
+        #expect(SessionService.personTag(of: "быть (wir/sie/Sie)") == "wir/sie/sie")
+        #expect(SessionService.personTag(of: "хотеть") == nil)
+        #expect(SessionService.personTag(of: "(ну) и что") == nil)
+        #expect(SessionService.personTag(of: nil) == nil)
+    }
+
+    @discardableResult
+    private func addWord(
+        _ text: String,
+        _ translation: String,
+        _ kind: PartOfSpeech,
+        to deck: Deck,
+        in context: ModelContext
+    ) -> Word {
+        let word = Word(text: text, translations: [translation], partOfSpeech: kind)
+        word.deck = deck
+        context.insert(word)
+        deck.words = (deck.words ?? []) + [word]
+        return word
+    }
+
     @Test("В маленькой колоде вариантов меньше, но без падения")
     func smallDeckProducesFewerOptions() throws {
         let environment = try TestEnvironment(wordCount: 2)
