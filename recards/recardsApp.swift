@@ -25,6 +25,7 @@ struct RecardsApp: App {
                     // и мешают, поэтому под тестами пропускаются.
                     guard !Self.isRunningTests else { return }
                     let context = container.mainContext
+                    CardMigration.removeRecognitionCards(in: context)
                     DemoDeckLoader.loadIfNeeded(into: context)
                     await NotificationService.rescheduleReminders(in: context)
                 }

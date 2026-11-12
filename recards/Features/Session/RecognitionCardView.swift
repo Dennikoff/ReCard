@@ -8,6 +8,9 @@ struct RecognitionCardView: View {
     let model: SessionViewModel
 
     @State private var autoAdvanceTask: Task<Void, Never>?
+    /// Автопереход отменён тапом после верного ответа: пользователь хочет
+    /// рассмотреть или послушать слово. Дальше — только по кнопке.
+    @State private var isHeld = false
 
     private var word: Word? { model.currentWord }
 
@@ -24,7 +27,8 @@ struct RecognitionCardView: View {
 
             optionsList
 
-            if verdict == .incorrect {
+            // После ошибки или остановки тапом автоперехода нет — только по кнопке.
+            if verdict == .incorrect || isHeld {
                 Button(action: advance) {
                     Text("Дальше")
                         .frame(maxWidth: .infinity)
@@ -40,6 +44,9 @@ struct RecognitionCardView: View {
         .animation(.snappy, value: model.stage)
         .onChange(of: model.stage) { _, newValue in handleStageChange(newValue) }
         .onDisappear { autoAdvanceTask?.cancel() }
+        // Тап в любом месте после верного ответа останавливает автопереход.
+        .contentShape(.rect)
+        .onTapGesture { hold() }
     }
 
     private var card: some View {
@@ -51,7 +58,7 @@ struct RecognitionCardView: View {
 
                 // Здесь звук ответа не выдаёт: слово уже на экране.
                 Button {
-                    model.speakCurrentWord()
+                    speak()
                 } label: {
                     Image(systemName: "speaker.wave.2.fill")
                         .font(.title3)
@@ -110,8 +117,21 @@ struct RecognitionCardView: View {
         model.advanceAfterFeedback()
     }
 
+    private func speak() {
+        model.speakCurrentWord()
+        hold()
+    }
+
+    /// Останавливает автопереход после верного ответа.
+    private func hold() {
+        guard let verdict, verdict != .incorrect else { return }
+        autoAdvanceTask?.cancel()
+        isHeld = true
+    }
+
     private func handleStageChange(_ stage: SessionStage) {
         autoAdvanceTask?.cancel()
+        isHeld = false
         guard case .answered(let value) = stage, value != .incorrect else { return }
 
         autoAdvanceTask = Task {

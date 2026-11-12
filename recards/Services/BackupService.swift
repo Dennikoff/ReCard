@@ -84,7 +84,7 @@ enum BackupService {
             exampleTranslation: word.exampleTranslation,
             createdAt: word.createdAt,
             startedAt: word.startedAt,
-            cards: (word.cards ?? []).map { card in
+            cards: [word.card].compactMap { $0 }.map { card in
                 BackupCard(
                     direction: card.directionRaw,
                     isArchived: card.isArchived,
@@ -150,9 +150,13 @@ enum BackupService {
                 context.insert(word)
                 deck.words = (deck.words ?? []) + [word]
 
-                for backupCard in backupWord.cards {
-                    let direction = CardDirection(rawValue: backupCard.direction) ?? .production
-                    let card = ReCard(direction: direction)
+                // Копии из версии с двумя карточками на слово: состояние слова —
+                // это прямая карточка, обратная отбрасывается (см. `CardMigration`).
+                let backupCards = backupWord.cards.filter {
+                    CardDirection(rawValue: $0.direction) != .recognition
+                }
+                for backupCard in backupCards.prefix(1) {
+                    let card = ReCard(direction: .production)
                     card.isArchived = backupCard.isArchived
                     card.due = backupCard.due
                     card.stability = backupCard.stability
@@ -169,8 +173,8 @@ enum BackupService {
                     word.cards = (word.cards ?? []) + [card]
                 }
 
-                // Файл мог прийти из версии, где карточек было меньше.
-                word.ensureCards()
+                // Файл мог прийти без карточки.
+                word.ensureCard()
             }
         }
 
@@ -192,9 +196,7 @@ enum BackupService {
         let descriptor = FetchDescriptor<Word>()
         for word in (try? context.fetch(descriptor)) ?? [] {
             word.startedAt = nil
-            for card in word.cards ?? [] {
-                card.resetProgress()
-            }
+            word.card?.resetProgress()
         }
         try context.delete(model: ReLog.self)
         try context.save()

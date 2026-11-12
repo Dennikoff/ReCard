@@ -101,6 +101,54 @@ struct AnswerCheckTests {
     }
 }
 
+@Suite("Формы слова — не опечатки")
+struct KnownWordTests {
+
+    /// Колода с полным спряжением `machen`, как в демо-колоде.
+    private let deck = AnswerChecker.knownWordSet(["machen", "mache", "machst", "macht", "macht", "machen"])
+
+    private func check(_ input: String, expecting expected: String) -> AnswerVerdict {
+        AnswerChecker.check(input: input, against: [expected], knownWords: deck)
+    }
+
+    @Test("Другая форма из колоды — ошибка, а не опечатка")
+    func otherFormIsIncorrect() {
+        #expect(check("machst", expecting: "macht") == .incorrect)
+        #expect(check("mache", expecting: "macht") == .incorrect)
+        #expect(check("machen", expecting: "mache") == .incorrect)
+        #expect(check("macht", expecting: "mache") == .incorrect)
+        #expect(check("macht", expecting: "machst") == .incorrect)
+        #expect(check("mache", expecting: "machen") == .incorrect)
+    }
+
+    @Test("Настоящие опечатки по-прежнему прощаются")
+    func realTyposAreForgiven() {
+        #expect(check("mahct", expecting: "macht") == .correctWithTypo)
+        #expect(check("machr", expecting: "macht") == .correctWithTypo)
+        #expect(check("machp", expecting: "mache") == .correctWithTypo)
+        #expect(check("machn", expecting: "machen") == .correctWithTypo)
+    }
+
+    @Test("Точный ответ верен, даже если такой же текст есть у другого слова")
+    func exactAnswerWinsOverKnownWord() {
+        // `macht` есть в колоде дважды (er и ihr) — это не мешает верному ответу.
+        #expect(check("macht", expecting: "macht") == .correct)
+        #expect(check("Macht", expecting: "macht") == .correct)
+    }
+
+    @Test("Умлаут: форма другого лица не прощается")
+    func umlautFormIsIncorrect() {
+        let fahren = AnswerChecker.knownWordSet(["fahren", "fahre", "fährst", "fährt", "fahrt"])
+        #expect(AnswerChecker.check(input: "fahrt", against: ["fährt"], knownWords: fahren) == .incorrect)
+        #expect(AnswerChecker.check(input: "faehrt", against: ["fährt"], knownWords: fahren) == .correct)
+    }
+
+    @Test("Без колоды поведение прежнее")
+    func emptyKnownWordsKeepsOldBehavior() {
+        #expect(AnswerChecker.check(input: "machst", against: ["macht"]) == .correctWithTypo)
+    }
+}
+
 @Suite("Расстояние между строками")
 struct LevenshteinTests {
 

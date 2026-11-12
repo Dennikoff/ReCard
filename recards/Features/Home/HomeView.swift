@@ -10,18 +10,24 @@ struct HomeView: View {
     @Query private var decks: [Deck]
     @Query private var cards: [ReCard]
 
+    #if DEBUG
+    // Тоже ради перерисовки: перемотка времени в настройках меняет,
+    // какие карточки уже пора повторять.
+    @AppStorage(AppClock.offsetKey) private var clockOffset = 0.0
+    #endif
+
     @State private var activeSession: SessionMode?
     /// Сколько новых слов разрешено взять сверх дневной нормы в открываемой сессии.
     @State private var additionalNewWords = 0
 
-    private var summary: SessionService.Summary {
-        SessionService.summary(in: context)
-    }
-
     var body: some View {
-        Group {
+        // Пока экран на виду, сводка пересчитывается раз в секунду: карточки
+        // становятся доступны с течением времени, а не при изменении данных.
+        // Считается один раз за тик и передаётся вниз — каждый расчёт делает выборки.
+        TimelineView(.periodic(from: .now, by: 1)) { _ in
+            let summary = SessionService.summary(in: context)
             if summary.hasDecks {
-                content
+                content(summary)
             } else {
                 emptyState
             }
@@ -34,22 +40,22 @@ struct HomeView: View {
 
     // MARK: - Основное содержимое
 
-    private var content: some View {
+    private func content(_ summary: SessionService.Summary) -> some View {
         ScrollView {
             VStack(spacing: 24) {
-                counters
+                counters(summary)
 
                 if summary.canLearn || summary.canReview {
-                    actions
+                    actions(summary)
                 } else {
-                    allDoneCard
+                    allDoneCard(summary)
                 }
             }
             .padding(20)
         }
     }
 
-    private var counters: some View {
+    private func counters(_ summary: SessionService.Summary) -> some View {
         HStack(spacing: 12) {
             counter(summary.newAvailable, title: "новых", color: .blue)
             counter(summary.dueNow, title: "к повторению", color: .orange)
@@ -72,7 +78,7 @@ struct HomeView: View {
         .glassEffect(.regular, in: .rect(cornerRadius: 20))
     }
 
-    private var actions: some View {
+    private func actions(_ summary: SessionService.Summary) -> some View {
         VStack(spacing: 12) {
             Button {
                 activeSession = .review
@@ -80,7 +86,7 @@ struct HomeView: View {
                 actionLabel(
                     title: "Повторить",
                     subtitle: summary.dueNow > 0
-                        ? "\(summary.dueNow) карточек готовы"
+                        ? "\(summary.dueNow) слов ждут повторения"
                         : "Пока нечего повторять",
                     systemImage: "arrow.triangle.2.circlepath"
                 )
@@ -123,7 +129,7 @@ struct HomeView: View {
     }
 
     /// Состояние «на сегодня всё»: не навязываем продолжение, но и не запрещаем.
-    private var allDoneCard: some View {
+    private func allDoneCard(_ summary: SessionService.Summary) -> some View {
         VStack(spacing: 14) {
             Image(systemName: "checkmark.seal.fill")
                 .font(.system(size: 44))
@@ -132,7 +138,7 @@ struct HomeView: View {
             Text("На сегодня всё")
                 .font(.title3.bold())
 
-            Text(nextDueDescription)
+            Text(nextDueDescription(summary))
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -157,13 +163,14 @@ struct HomeView: View {
             .contains(where: \.isNew)
     }
 
-    private var nextDueDescription: String {
+    /// `LocalizedStringKey`, а не `String`: иначе фраза не переводится.
+    private func nextDueDescription(_ summary: SessionService.Summary) -> LocalizedStringKey {
         guard let next = summary.nextDue else {
             return "Новых повторений пока не запланировано."
         }
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .full
-        return "Следующее повторение \(formatter.localizedString(for: next, relativeTo: Date()))."
+        return "Следующее повторение \(formatter.localizedString(for: next, relativeTo: AppClock.now))."
     }
 
     // MARK: - Пустое состояние

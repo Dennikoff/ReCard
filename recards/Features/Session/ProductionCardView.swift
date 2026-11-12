@@ -6,6 +6,9 @@ struct ProductionCardView: View {
 
     @FocusState private var isFieldFocused: Bool
     @State private var autoAdvanceTask: Task<Void, Never>?
+    /// Автопереход отменён тапом после верного ответа: пользователь хочет
+    /// рассмотреть или послушать слово. Дальше — только по кнопке.
+    @State private var isHeld = false
 
     private var word: Word? { model.currentWord }
 
@@ -35,11 +38,9 @@ struct ProductionCardView: View {
             handleStageChange(newValue)
         }
         .onDisappear { autoAdvanceTask?.cancel() }
-        // Тап в любом месте продолжает сессию после верного ответа.
+        // Тап в любом месте после верного ответа останавливает автопереход.
         .contentShape(.rect)
-        .onTapGesture {
-            if verdict != nil, verdict != .incorrect { advance() }
-        }
+        .onTapGesture { hold() }
     }
 
     // MARK: - Карточка
@@ -73,7 +74,7 @@ struct ProductionCardView: View {
                     .font(.title2.bold())
 
                 Button {
-                    model.speakCurrentWord()
+                    speak()
                 } label: {
                     Image(systemName: "speaker.wave.2.fill")
                 }
@@ -180,8 +181,9 @@ struct ProductionCardView: View {
             }
 
             // Верный ответ уходит сам, неверный требует осознанного тапа —
-            // чтобы правильное написание успели прочитать.
-            if verdict == .incorrect {
+            // чтобы правильное написание успели прочитать. Если верный ответ
+            // остановлен тапом, тоже нужна кнопка.
+            if verdict == .incorrect || isHeld {
                 Button(action: advance) {
                     Text("Дальше")
                         .frame(maxWidth: .infinity)
@@ -207,8 +209,21 @@ struct ProductionCardView: View {
         isFieldFocused = true
     }
 
+    private func speak() {
+        model.speakCurrentWord()
+        hold()
+    }
+
+    /// Останавливает автопереход после верного ответа.
+    private func hold() {
+        guard let verdict, verdict != .incorrect else { return }
+        autoAdvanceTask?.cancel()
+        isHeld = true
+    }
+
     private func handleStageChange(_ stage: SessionStage) {
         autoAdvanceTask?.cancel()
+        isHeld = false
 
         guard case .answered(let value) = stage, value != .incorrect else {
             if case .asking = stage { isFieldFocused = true }

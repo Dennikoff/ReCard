@@ -12,7 +12,8 @@ private struct TestEnvironment {
 
     init(wordCount: Int = 3, started: Bool = false) throws {
         let schema = Schema([Deck.self, Word.self, ReCard.self, ReLog.self])
-        let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        // Уникальное имя: иначе in-memory хранилища тестов делят backend.
+        let configuration = ModelConfiguration(UUID().uuidString, schema: schema, isStoredInMemoryOnly: true)
         container = try ModelContainer(for: schema, configurations: [configuration])
         context = container.mainContext
 
@@ -24,14 +25,16 @@ private struct TestEnvironment {
             word.deck = deck
             context.insert(word)
             deck.words = (deck.words ?? []) + [word]
-            word.ensureCards()
+            word.ensureCard()
 
             if started {
-                // Слово уже изучается, обе карточки просрочены.
+                // Слово уже изучается, карточка просрочена.
                 word.startedAt = Date().addingTimeInterval(-86_400)
-                for card in word.cards ?? [] {
+                if let card = word.card {
                     card.state = .review
                     card.due = Date().addingTimeInterval(-3600)
+                    card.lastReview = Date().addingTimeInterval(-6 * 86_400)
+                    card.scheduledDays = 5
                     card.stability = 5
                     card.difficulty = 5
                     card.reps = 1
@@ -72,10 +75,9 @@ struct ReviewSessionTests {
         let model = SessionViewModel(mode: .review, context: environment.context, deck: environment.deck)
 
         let card = try #require(model.currentCard)
-        let word = try #require(model.currentWord)
         let dueBefore = card.due
 
-        answer(model, card: card, word: word, correct: true)
+        answer(model, correct: true)
 
         #expect(model.correctCount == 1)
         #expect(model.incorrectCount == 0)
@@ -88,26 +90,18 @@ struct ReviewSessionTests {
         let environment = try TestEnvironment(wordCount: 3, started: true)
         let model = SessionViewModel(mode: .review, context: environment.context, deck: environment.deck)
 
-        let card = try #require(model.currentCard)
-        let word = try #require(model.currentWord)
-
-        model.typedAnswer = card.direction == .production ? "заведомо неверно" : ""
-        if card.direction == .recognition {
-            model.selectOption("заведомо неверно")
-        } else {
-            model.submitTypedAnswer()
-        }
+        let exercise = try #require(model.currentExercise)
+        answer(model, correct: false)
 
         #expect(model.incorrectCount == 1)
         #expect(model.mistakes.count == 1)
 
         model.advanceAfterFeedback()
 
-        // Карточка не исчезла из сессии, а ждёт своей очереди в конце блока.
-        #expect(model.currentCard?.id != card.id)
-        #expect(model.queue.last?.id == card.id)
-        #expect(model.queue.contains { $0.id == card.id })
-        _ = word
+        // Упражнение не исчезло из сессии, а ждёт своей очереди в конце блока.
+        #expect(model.currentExercise?.id != exercise.id)
+        #expect(model.queue.last?.id == exercise.id)
+        #expect(model.queue.last?.isRetry == true)
     }
 
     @Test("Кнопка «засчитать как верный» переносит ответ в верные")
@@ -115,8 +109,7 @@ struct ReviewSessionTests {
         let environment = try TestEnvironment(wordCount: 1, started: true)
         let model = SessionViewModel(mode: .review, context: environment.context, deck: environment.deck)
 
-        let card = try #require(model.currentCard)
-        answer(model, card: card, word: try #require(model.currentWord), correct: false)
+        answer(model, correct: false)
 
         #expect(model.incorrectCount == 1)
 
@@ -134,12 +127,10 @@ struct ReviewSessionTests {
         UserDefaults.standard.set(true, forKey: SettingsKey.recognitionEnabled)
         let model = SessionViewModel(mode: .review, context: environment.context, deck: environment.deck)
 
-        // Парные карточки одного слова разнесены по разным блокам, поэтому до
-        // направления «слово → перевод» приходится дойти через границу блока.
+        // Выбор перевода идёт в блоке после печати.
         try advance(model, to: .recognition)
 
-        let card = try #require(model.currentCard)
-        #expect(card.direction == .recognition)
+        #expect(model.currentDirection == .recognition)
         let word = try #require(model.currentWord)
         let before = word.translations.count
 
@@ -167,29 +158,127 @@ struct ReviewSessionTests {
         let environment = try TestEnvironment(wordCount: 10, started: true)
         let model = SessionViewModel(mode: .review, context: environment.context, deck: environment.deck)
 
-        let total = model.blocks.reduce(0) { $0 + $1.count }
-        #expect(total == 2)
+        let words = Set(model.blocks.flatMap { $0 }.compactMap { $0.card.word?.id })
+        #expect(words.count == 2, "Лимит считается в словах, а не в упражнениях")
     }
 
-    /// Доводит сессию до карточки нужного направления, отвечая верно по пути.
+    @Test("Пять слов — один блок из десяти упражнений")
+    func wordsMakeOneBlock() throws {
+        let environment = try TestEnvironment(wordCount: 5, started: true)
+        let model = SessionViewModel(mode: .review, context: environment.context, deck: environment.deck)
+
+        #expect(model.blocks.count == 1)
+        #expect(model.blocks.first?.count == 10)
+        #expect(SessionService.summary(in: environment.context).dueNow == 5, "Счётчик считает слова")
+    }
+
+    @Test("Два верных ответа — один шаг планировщика")
+    func bothCorrectIsOneStep() throws {
+        let environment = try TestEnvironment(wordCount: 1, started: true)
+        let model = SessionViewModel(mode: .review, context: environment.context, deck: environment.deck)
+        let card = try #require(model.currentCard)
+
+        try answerAll(model, correct: [.production: true, .recognition: true])
+
+        #expect(card.reps == 2, "Слово повторено один раз, а не два")
+        #expect(card.lapses == 0)
+        #expect(card.due > Date().addingTimeInterval(86_400))
+        #expect(environment.logCount() == 2, "Журнал пишется на каждое упражнение")
+        #expect(SessionService.reviewsDoneToday(in: environment.context) == 1)
+    }
+
+    @Test("Ошибка в выборе перевода — ошибка для всего слова")
+    func recognitionMistakeFailsWord() throws {
+        let environment = try TestEnvironment(wordCount: 1, started: true)
+        let model = SessionViewModel(mode: .review, context: environment.context, deck: environment.deck)
+        let card = try #require(model.currentCard)
+
+        try answerAll(model, correct: [.production: true, .recognition: false])
+
+        #expect(card.lapses == 1, "Верная печать не спасает слово")
+        #expect(card.state == .relearning)
+    }
+
+    @Test("«Засчитать как верный» возвращает слову верную оценку")
+    func markingCorrectRestoresWordGrade() throws {
+        let environment = try TestEnvironment(wordCount: 1, started: true)
+        let model = SessionViewModel(mode: .review, context: environment.context, deck: environment.deck)
+        let card = try #require(model.currentCard)
+
+        answer(model, correct: true)
+        model.advanceAfterFeedback()
+        answer(model, correct: false)
+        model.markLastAnswerCorrect()
+
+        #expect(card.lapses == 0)
+        #expect(card.reps == 2)
+    }
+
+    @Test("Ввод другого слова колоды — ошибка, а не опечатка")
+    func otherDeckWordIsNotATypo() throws {
+        // В колоде wort0 и wort1 — отличие в одну букву, как у соседних форм глагола.
+        let environment = try TestEnvironment(wordCount: 2, started: true)
+        let model = SessionViewModel(mode: .review, context: environment.context, deck: environment.deck)
+        try advance(model, to: .production)
+
+        let word = try #require(model.currentWord)
+        let other = try #require(environment.deck.sortedWords.first { $0.id != word.id })
+        model.typedAnswer = other.text
+        model.submitTypedAnswer()
+
+        #expect(model.stage == .answered(.incorrect))
+    }
+
+    @Test("В режиме выбора засчитывается перевод слова с тем же текстом")
+    func twinTranslationIsAcceptedInRecognition() throws {
+        let environment = try TestEnvironment(wordCount: 1, started: true)
+        UserDefaults.standard.set(true, forKey: SettingsKey.recognitionEnabled)
+
+        // Вторая форма с тем же написанием, как `will` для ich и для er/sie/es.
+        let original = try #require(environment.deck.sortedWords.first)
+        let twin = Word(text: original.text, translations: ["близнец"])
+        twin.deck = environment.deck
+        environment.context.insert(twin)
+        environment.deck.words = (environment.deck.words ?? []) + [twin]
+        try environment.context.save()
+
+        let model = SessionViewModel(mode: .review, context: environment.context, deck: environment.deck)
+        try advance(model, to: .recognition)
+        #expect(model.currentWord?.id == original.id)
+
+        model.selectOption("близнец")
+
+        #expect(model.stage == .answered(.correct))
+    }
+
+    /// Доводит сессию до упражнения нужного направления, отвечая верно по пути.
     private func advance(_ model: SessionViewModel, to direction: CardDirection) throws {
         for _ in 0..<20 {
             if case .blockBreak = model.stage {
                 model.startNextBlock()
                 continue
             }
-            guard let card = model.currentCard else { break }
-            if card.direction == direction { return }
+            guard model.currentExercise != nil else { break }
+            if model.currentDirection == direction { return }
 
-            answer(model, card: card, word: try #require(model.currentWord), correct: true)
+            answer(model, correct: true)
             model.advanceAfterFeedback()
         }
-        Issue.record("Карточка направления \(direction) в сессии не встретилась")
+        Issue.record("Упражнение направления \(direction) в сессии не встретилось")
     }
 
-    /// Отвечает на текущую карточку заведомо верно или заведомо неверно.
-    private func answer(_ model: SessionViewModel, card: ReCard, word: Word, correct: Bool) {
-        switch card.direction {
+    /// Отвечает на все упражнения блока по первому разу, повторные попытки не трогает.
+    private func answerAll(_ model: SessionViewModel, correct: [CardDirection: Bool]) throws {
+        while let exercise = model.currentExercise, !exercise.isRetry {
+            answer(model, correct: try #require(correct[exercise.direction]))
+            model.advanceAfterFeedback()
+        }
+    }
+
+    /// Отвечает на текущее упражнение заведомо верно или заведомо неверно.
+    private func answer(_ model: SessionViewModel, correct: Bool) {
+        guard let word = model.currentWord else { return }
+        switch model.currentDirection {
         case .production:
             model.typedAnswer = correct ? word.text : "заведомо неверный ответ"
             model.submitTypedAnswer()
@@ -227,8 +316,8 @@ struct LearnSessionTests {
         #expect(model.stage == .asking, "Приложение не должно верить на слово")
     }
 
-    @Test("Подтверждённое печатью слово получает прогресс")
-    func confirmedKnownWordAdvances() throws {
+    @Test("Подтверждённое печатью «Знаю» сразу отправляет слово в выученные")
+    func confirmedKnownWordIsLearned() throws {
         let environment = try TestEnvironment(wordCount: 1)
         let model = SessionViewModel(mode: .learn, context: environment.context, deck: environment.deck)
 
@@ -237,9 +326,65 @@ struct LearnSessionTests {
         model.typedAnswer = word.text
         model.submitTypedAnswer()
 
+        #expect(model.stage == .answered(.correct))
         #expect(model.correctCount == 1)
         #expect(word.startedAt != nil, "Слово должно выйти из состояния «новое»")
+        #expect(word.isLearned, "Карточка слова должна уйти в архив")
         #expect(environment.logCount() == 1)
+    }
+
+    @Test("После «Знаю» следующее слово снова показывается с выбором")
+    func knownWordDoesNotLeakIntoNextWord() throws {
+        let environment = try TestEnvironment(wordCount: 2)
+        let model = SessionViewModel(mode: .learn, context: environment.context, deck: environment.deck)
+
+        let first = try #require(model.currentWord)
+        model.claimKnown()
+        model.typedAnswer = first.text
+        model.submitTypedAnswer()
+        model.advanceAfterFeedback()
+
+        #expect(model.stage == .introducing)
+        #expect(model.currentWord?.id != first.id)
+    }
+
+    @Test("Мини-проверка не пропускается, если в блоке было «Знаю»")
+    func miniCheckSurvivesKnownWord() throws {
+        let environment = try TestEnvironment(wordCount: 2)
+        let model = SessionViewModel(mode: .learn, context: environment.context, deck: environment.deck)
+
+        let first = try #require(model.currentWord)
+        model.claimKnown()
+        model.typedAnswer = first.text
+        model.submitTypedAnswer()
+        model.advanceAfterFeedback()
+
+        let second = try #require(model.currentWord)
+        model.revealNewWord()
+        model.continueAfterReading()
+
+        #expect(model.stage == .asking, "Должна начаться мини-проверка")
+        #expect(model.currentWord?.id == second.id)
+    }
+
+    @Test("Неверное подтверждение «Знаю» обрабатывается как «Не знаю»")
+    func failedKnownClaimFallsBackToReading() throws {
+        let environment = try TestEnvironment(wordCount: 1)
+        let model = SessionViewModel(mode: .learn, context: environment.context, deck: environment.deck)
+
+        let word = try #require(model.currentWord)
+        model.claimKnown()
+        model.typedAnswer = "совсем не то"
+        model.submitTypedAnswer()
+
+        #expect(model.stage == .reading, "Карточка раскрывается целиком")
+        #expect(!word.isLearned)
+        #expect(word.startedAt == nil, "Слово остаётся новым до мини-проверки")
+        #expect(environment.logCount() == 1, "Попытка всё равно пишется в журнал")
+
+        model.continueAfterReading()
+        #expect(model.stage == .asking, "Слово уходит на мини-проверку")
+        #expect(model.currentWord?.id == word.id)
     }
 
     @Test("«Не знаю» раскрывает карточку, а затем слово идёт на проверку")
@@ -285,6 +430,22 @@ struct DistractorTests {
         for option in distractors {
             #expect(!word.translations.contains(option))
         }
+    }
+
+    @Test("Принимаются переводы всех слов колоды с тем же текстом")
+    func acceptedTranslationsIncludeTwins() throws {
+        let environment = try TestEnvironment(wordCount: 2)
+        let word = try #require(environment.deck.sortedWords.first)
+        let twin = Word(text: word.text.uppercased(), translations: ["близнец"])
+        twin.deck = environment.deck
+        environment.context.insert(twin)
+        environment.deck.words = (environment.deck.words ?? []) + [twin]
+
+        let accepted = SessionService.acceptedTranslations(for: word)
+
+        #expect(accepted.contains("близнец"))
+        #expect(word.translations.allSatisfy(accepted.contains))
+        #expect(accepted.count == word.translations.count + 1, "Чужие слова не примешиваются")
     }
 
     @Test("В маленькой колоде вариантов меньше, но без падения")

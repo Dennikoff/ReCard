@@ -45,22 +45,20 @@ final class Word {
 extension Word {
     var isNew: Bool { startedAt == nil }
 
-    /// Слово выучено, когда все его карточки уехали в архив.
-    var isLearned: Bool {
-        let cards = cards ?? []
-        return !cards.isEmpty && cards.allSatisfy(\.isArchived)
+    /// Слово выучено, когда его карточка уехала в архив.
+    var isLearned: Bool { card?.isArchived ?? false }
+
+    /// Карточка повторения слова. Она одна на слово: оба упражнения — печать
+    /// и выбор перевода — двигают одно состояние планировщика (SPEC 2.3).
+    var card: ReCard? {
+        (cards ?? []).first { $0.direction == .production }
     }
 
-    func card(for direction: CardDirection) -> ReCard? {
-        (cards ?? []).first { $0.direction == direction }
-    }
-
-    /// Создаёт недостающие карточки обоих направлений.
-    func ensureCards() {
-        for direction in CardDirection.allCases where card(for: direction) == nil {
-            let card = ReCard(direction: direction)
-            card.word = self
-            cards = (cards ?? []) + [card]
-        }
+    /// Создаёт карточку слова, если её ещё нет.
+    func ensureCard() {
+        guard card == nil else { return }
+        let card = ReCard(direction: .production)
+        card.word = self
+        cards = (cards ?? []) + [card]
     }
 }

@@ -13,6 +13,10 @@ struct SettingsView: View {
     @AppStorage(SettingsKey.reminderHour) private var reminderHour = SettingsDefault.reminderHour
     @AppStorage(SettingsKey.reminderMinute) private var reminderMinute = SettingsDefault.reminderMinute
 
+    #if DEBUG
+    @AppStorage(AppClock.offsetKey) private var clockOffset = 0.0
+    #endif
+
     @State private var backupDocument: TextFileDocument?
     @State private var isRestoring = false
     @State private var isConfirmingReset = false
@@ -43,6 +47,9 @@ struct SettingsView: View {
             remindersSection
             dataSection
             aboutSection
+            #if DEBUG
+            debugClockSection
+            #endif
         }
         .navigationTitle("Настройки")
         .fileExporter(
@@ -192,6 +199,54 @@ struct SettingsView: View {
             Text("Язык интерфейса меняется в системных настройках приложения.")
         }
     }
+
+    // MARK: - Перемотка времени (только отладочная сборка)
+
+    #if DEBUG
+    // Подписи через `verbatim`: это инструмент для демо, а не часть продукта,
+    // поэтому в каталог строк и перевод он не попадает.
+    private var debugClockSection: some View {
+        Section {
+            LabeledContent {
+                Text(Date().addingTimeInterval(clockOffset),
+                     format: .dateTime.day().month().hour().minute())
+            } label: {
+                Text(verbatim: "Время в приложении")
+            }
+            LabeledContent {
+                Text(verbatim: clockOffsetDescription)
+            } label: {
+                Text(verbatim: "Сдвиг")
+            }
+            // 1 и 10 минут — шаги заучивания FSRS по умолчанию.
+            Button { clockOffset += 60 } label: { Text(verbatim: "+1 минута") }
+            Button { clockOffset += 600 } label: { Text(verbatim: "+10 минут") }
+            Button { clockOffset += 3600 } label: { Text(verbatim: "+1 час") }
+            Button { clockOffset += 86_400 } label: { Text(verbatim: "+1 день") }
+            Button { clockOffset += 7 * 86_400 } label: { Text(verbatim: "+1 неделя") }
+            Button(role: .destructive) { clockOffset = 0 } label: {
+                Text(verbatim: "Вернуть реальное время")
+            }
+            .disabled(clockOffset == 0)
+        } header: {
+            Text(verbatim: "Время (отладка)")
+        } footer: {
+            Text(verbatim: "Только в отладочной сборке. Сдвигает «сейчас» для сроков карточек, дневных лимитов и журнала ответов. Напоминания идут по реальному времени.")
+        }
+    }
+
+    private var clockOffsetDescription: String {
+        let totalMinutes = Int(clockOffset / 60)
+        let days = totalMinutes / 1440
+        let hours = totalMinutes % 1440 / 60
+        let minutes = totalMinutes % 60
+        var parts: [String] = []
+        if days > 0 { parts.append("\(days) дн.") }
+        if hours > 0 { parts.append("\(hours) ч") }
+        if minutes > 0 { parts.append("\(minutes) мин") }
+        return parts.isEmpty ? "нет" : "+" + parts.joined(separator: " ")
+    }
+    #endif
 
     private var appVersion: String {
         let info = Bundle.main.infoDictionary

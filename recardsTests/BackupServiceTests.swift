@@ -39,11 +39,11 @@ private func makeDeck(in context: ModelContext, name: String = "Тест", start
         word.deck = deck
         context.insert(word)
         deck.words = (deck.words ?? []) + [word]
-        word.ensureCards()
+        word.ensureCard()
 
         if started {
             word.startedAt = Date()
-            for card in word.cards ?? [] {
+            if let card = word.card {
                 card.state = .review
                 card.stability = 12.5
                 card.reps = 3
@@ -100,9 +100,9 @@ struct BackupServiceTests {
         #expect(word.translations.count == 2)
         #expect(word.startedAt != nil)
         #expect(word.transcription == "/w0/")
-        #expect((word.cards ?? []).count == 2)
+        #expect((word.cards ?? []).count == 1)
 
-        let card = try #require(word.card(for: .production))
+        let card = try #require(word.card)
         #expect(card.stability == 12.5)
         #expect(card.reps == 3)
         #expect(card.state == .review)
@@ -153,6 +153,49 @@ struct BackupServiceTests {
         #expect(try context.fetchCount(FetchDescriptor<ReCard>()) == 0)
     }
 
+    @Test("Копия из версии с двумя карточками восстанавливается с одной")
+    func restoreDropsRecognitionCard() throws {
+        let container = try makeContainer()
+        let context = container.mainContext
+        _ = makeDeck(in: context, started: true)
+        var backup = BackupService.makeBackup(in: context)
+
+        // Обратная карточка из старого формата, причём первой в списке.
+        for wordIndex in backup.decks[0].words.indices {
+            var old = backup.decks[0].words[wordIndex].cards[0]
+            old.direction = CardDirection.recognition.rawValue
+            old.stability = 99
+            backup.decks[0].words[wordIndex].cards.insert(old, at: 0)
+        }
+
+        try BackupService.restore(backup, into: context)
+
+        let words = try context.fetch(FetchDescriptor<Word>())
+        #expect(words.allSatisfy { ($0.cards ?? []).count == 1 })
+        #expect(words.allSatisfy { $0.card?.stability == 12.5 }, "Состояние берётся из прямой карточки")
+    }
+
+    @Test("Миграция удаляет обратные карточки и оставляет прямые")
+    func migrationRemovesRecognitionCards() throws {
+        let container = try makeContainer()
+        let context = container.mainContext
+        let deck = makeDeck(in: context, started: true)
+        for word in deck.sortedWords {
+            let old = ReCard(direction: .recognition)
+            old.word = word
+            context.insert(old)
+            word.cards = (word.cards ?? []) + [old]
+        }
+        try context.save()
+        #expect(try context.fetchCount(FetchDescriptor<ReCard>()) == 6)
+
+        CardMigration.removeRecognitionCards(in: context)
+        CardMigration.removeRecognitionCards(in: context)
+
+        #expect(try context.fetchCount(FetchDescriptor<ReCard>()) == 3)
+        #expect(deck.sortedWords.allSatisfy { $0.card?.stability == 12.5 })
+    }
+
     @Test("Демо-колоды из бандла читаются и валидны")
     func demoDecksAreValid() throws {
         for name in ["de_ru_a1", "en_ru_a1"] {
@@ -162,6 +205,9 @@ struct BackupServiceTests {
             )
             #expect(payload.words.count >= 40, "В демо-колоде \(name) слишком мало слов")
             #expect(payload.words.allSatisfy { !$0.word.isEmpty && !$0.translations.isEmpty })
+            // Иначе часть слов, например совпадающие формы глагола, потерялась бы при импорте.
+            let keys = Set(payload.words.map { WordKey.make(text: $0.word, translations: $0.translations) })
+            #expect(keys.count == payload.words.count, "В демо-колоде \(name) есть дубликаты")
         }
     }
 }

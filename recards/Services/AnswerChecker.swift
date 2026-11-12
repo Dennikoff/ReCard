@@ -48,7 +48,16 @@ nonisolated enum AnswerChecker {
     // MARK: - Сравнение
 
     /// Сравнивает ввод со всеми допустимыми вариантами и возвращает лучший исход.
-    static func check(input: String, against expected: [String]) -> AnswerVerdict {
+    ///
+    /// - Parameter knownWords: нормализованные тексты слов колоды (см. `knownWordSet`).
+    ///   Ввод, точно совпавший с другим словом колоды, опечаткой не считается: `machst`
+    ///   вместо `macht` — это незнание формы, а не промах по клавише. Сверка нужна только
+    ///   при отличии ровно в один символ, поэтому стоит один поиск в множестве.
+    static func check(
+        input: String,
+        against expected: [String],
+        knownWords: Set<String> = []
+    ) -> AnswerVerdict {
         let normalizedInput = normalize(input)
         guard !normalizedInput.isEmpty else { return .incorrect }
 
@@ -59,6 +68,11 @@ nonisolated enum AnswerChecker {
 
         if normalizedExpected.contains(normalizedInput) {
             return .correct
+        }
+
+        // Точного совпадения нет, а ввод — другое существующее слово колоды.
+        if knownWords.contains(normalizedInput) {
+            return .incorrect
         }
 
         let inputCharacters = Array(normalizedInput)
@@ -74,6 +88,11 @@ nonisolated enum AnswerChecker {
         }
 
         return .incorrect
+    }
+
+    /// Нормализованные тексты слов — для параметра `knownWords` в `check`.
+    static func knownWordSet(_ texts: some Sequence<String>) -> Set<String> {
+        Set(texts.map(normalize).filter { !$0.isEmpty })
     }
 
     /// Возвращает вариант ответа, ближайший к введённому. Используется в разборе ошибки.

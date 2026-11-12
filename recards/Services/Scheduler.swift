@@ -26,7 +26,7 @@ nonisolated struct CardScheduleState: Equatable, Sendable {
     var lastReview: Date?
 
     /// Состояние новой, ни разу не показанной карточки.
-    static func empty(due: Date = Date()) -> CardScheduleState {
+    static func empty(due: Date = AppClock.now) -> CardScheduleState {
         CardScheduleState(
             due: due,
             stability: 0,

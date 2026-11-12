@@ -69,9 +69,9 @@ extension Deck {
         return "\(source) → \(target)"
     }
 
-    /// Нормализованные тексты слов — для отсева дубликатов при импорте.
+    /// Ключи слов колоды (текст вместе с переводами) — для отсева дубликатов при импорте.
     var existingWordKeys: Set<String> {
-        Set((words ?? []).map { AnswerChecker.normalize($0.text) })
+        Set((words ?? []).map { WordKey.make(text: $0.text, translations: $0.translations) })
     }
 
     /// Файловое представление колоды для экспорта и резервной копии.

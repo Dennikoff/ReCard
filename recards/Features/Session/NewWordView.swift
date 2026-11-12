@@ -36,6 +36,9 @@ struct NewWordView: View {
         .animation(.snappy, value: model.stage)
     }
 
+    /// Лицевая сторона — перевод, как у карточки `production`. Само слово открывается
+    /// только по «Не знаю»: иначе подтверждение «Знаю» печатью сводится
+    /// к переписыванию того, что только что было на экране.
     private var card: some View {
         VStack(spacing: 12) {
             Text("Новое слово")
@@ -43,22 +46,9 @@ struct NewWordView: View {
                 .foregroundStyle(.secondary)
                 .textCase(.uppercase)
 
-            HStack(spacing: 10) {
-                Text(word?.text ?? "")
-                    .font(.system(size: 30, weight: .semibold, design: .rounded))
-                    .multilineTextAlignment(.center)
-
-                if isRevealed {
-                    Button {
-                        model.speakCurrentWord()
-                    } label: {
-                        Image(systemName: "speaker.wave.2.fill")
-                            .font(.title3)
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityLabel("Произнести слово")
-                }
-            }
+            Text(word?.translations.joined(separator: ", ") ?? "")
+                .font(.system(size: 30, weight: .semibold, design: .rounded))
+                .multilineTextAlignment(.center)
 
             if isRevealed {
                 revealedContent
@@ -71,16 +61,28 @@ struct NewWordView: View {
 
     private var revealedContent: some View {
         VStack(spacing: 10) {
+            Divider()
+
+            HStack(spacing: 10) {
+                Text(word?.text ?? "")
+                    .font(.title2.weight(.semibold))
+                    .multilineTextAlignment(.center)
+
+                Button {
+                    model.speakCurrentWord()
+                } label: {
+                    Image(systemName: "speaker.wave.2.fill")
+                        .font(.title3)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Произнести слово")
+            }
+
             if let transcription = word?.transcription {
                 Text(transcription)
                     .font(.callout)
                     .foregroundStyle(.secondary)
             }
-
-            Divider()
-
-            Text(word?.translations.joined(separator: ", ") ?? "")
-                .font(.title3)
 
             if let example = word?.example {
                 VStack(spacing: 3) {

@@ -1,1756 +1,1820 @@
 {
-  "sourceLanguage": "ru",
-  "strings": {
-    "Учить": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Learn"
+  "sourceLanguage" : "ru",
+  "strings" : {
+    "%lld" : {},
+    "%lld " : {},
+    "%lld слов" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld words"
           }
         }
       }
     },
-    "Колоды": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Decks"
+    "%lld слов доступно сегодня" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld words available today"
           }
         }
       }
     },
-    "Настройки": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Settings"
+    "%lld слов ждут повторения" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld words due for review"
           }
         }
       }
     },
-    "Новая колода": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "New Deck"
+    "CSV или TSV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CSV or TSV"
           }
         }
       }
     },
-    "Колода": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deck"
+    "JSON" : {},
+    "«%@» будет удалено вместе с прогрессом." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” will be deleted along with its progress."
           }
         }
       }
     },
-    "Новое слово": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "New Word"
+    "«Знаю» нужно будет подтвердить: приложение попросит напечатать слово." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“I know it” must be confirmed: the app will ask you to type the word."
           }
         }
       }
     },
-    "Слово": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Word"
+    "Артикль пишется вместе со словом: «der Hund»." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Write the article together with the word: “der Hund”."
           }
         }
       }
     },
-    "Импорт": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Import"
+    "Артикль пишется вместе со словом: «der Hund». Тогда его нужно будет ввести при проверке." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Write the article together with the word: “der Hund”. You will need to type it when answering."
           }
         }
       }
     },
-    "Предпросмотр": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Preview"
+    "Без единой ошибки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flawless"
           }
         }
       }
     },
-    "Формат файла": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "File Format"
+    "Блок пройден" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Block complete"
           }
         }
       }
     },
-    "Прогресс": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Progress"
+    "Будет добавлено" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Will be added"
           }
         }
       }
     },
-    "Повторить": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Review"
+    "Будет потерян прогресс по %lld словам. Действие необратимо." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Progress for %lld words will be lost. This cannot be undone."
           }
         }
       }
     },
-    "Изучить новые": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Learn New"
+    "Будут удалены все колоды, слова и история. Действие необратимо." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All decks, words and history will be deleted. This cannot be undone."
           }
         }
       }
     },
-    "новых": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "new"
+    "В списке только языки, для которых в системе есть голос: их приложение сможет произнести." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only languages with a system voice are listed, so the app can pronounce them."
           }
         }
       }
     },
-    "к повторению": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "to review"
+    "Верно" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct"
           }
         }
       }
     },
-    "выучено": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "learned"
+    "Верно %lld · с ошибкой %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct %lld · wrong %lld"
           }
         }
       }
     },
-    "Пока нечего повторять": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nothing to review yet"
+    "Вернуть в ротацию" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Return to rotation"
           }
         }
       }
     },
-    "Дневная норма выполнена": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Daily goal reached"
+    "Версия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
           }
         }
       }
     },
-    "%lld карточек готовы": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld cards ready"
+    "Взять ещё %lld новых слов" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take %lld more new words"
           }
         }
       }
     },
-    "%lld слов доступно сегодня": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld words available today"
+    "Восстановить" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore"
           }
         }
       }
     },
-    "На сегодня всё": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All done for today"
+    "Восстановить из копии" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore from Backup"
           }
         }
       }
     },
-    "Взять ещё %lld новых слов": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Take %lld more new words"
+    "Восстановить из копии?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore from backup?"
           }
         }
       }
     },
-    "Новых повторений пока не запланировано.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No reviews scheduled yet."
+    "Время" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time"
           }
         }
       }
     },
-    "Следующее повторение %@.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Next review %@."
+    "Все" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
           }
         }
       }
     },
-    "Нет активных колод": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No active decks"
+    "Все данные удалены." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All data deleted."
           }
         }
       }
     },
-    "Создайте колоду на вкладке «Колоды» или включите существующую.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create a deck on the Decks tab or enable an existing one."
+    "Все карточки на сегодня уже пройдены." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All cards for today are done."
           }
         }
       }
     },
-    "Пока нет колод": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No decks yet"
+    "Вставьте промпт в любой ИИ-чат, замените значения в квадратных скобках и импортируйте полученный CSV. Результат стоит просмотреть: модель может ошибиться в формах и переводах." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paste the prompt into any AI chat, replace the values in square brackets, and import the resulting CSV. Review the result: the model can make mistakes in forms and translations."
           }
         }
       }
     },
-    "Создайте колоду и добавьте слова вручную или загрузите готовый файл.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create a deck and add words manually or import a file."
+    "Выбрать файл" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose File"
           }
         }
       }
     },
-    "Создать колоду": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create Deck"
+    "Выйти" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exit"
           }
         }
       }
     },
-    "Показать формат файла": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Show File Format"
+    "Выйти из сессии?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exit session?"
           }
         }
       }
     },
-    "Удалить": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete"
+    "Выучено" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learned"
           }
         }
       }
     },
-    "Отмена": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cancel"
+    "Глагол: инфинитив отдельной строкой, затем каждая форма — своей строкой, а лицо указывается в скобках в переводе: «liest,читать (du)»." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbs: the infinitive on its own row, then each form on its own row, with the person in parentheses in the translation: “liest,to read (du)”."
           }
         }
       }
     },
-    "Удалить колоду «%@»?": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete deck “%@”?"
+    "Готово" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
           }
         }
       }
     },
-    "Будет потерян прогресс по %lld словам. Действие необратимо.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Progress for %lld words will be lost. This cannot be undone."
+    "Далее" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
           }
         }
       }
     },
-    "Колода содержит %lld слов. Действие необратимо.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The deck contains %lld words. This cannot be undone."
+    "Дальше" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
           }
         }
       }
     },
-    "Название": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Name"
+    "Данные" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data"
           }
         }
       }
     },
-    "Значок": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Icon"
+    "Данные восстановлены." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data restored."
           }
         }
       }
     },
-    "Языки": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Languages"
+    "Дневная норма выполнена" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daily goal reached"
           }
         }
       }
     },
-    "Язык слова": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Word language"
+    "Добавить слово" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Word"
           }
         }
       }
     },
-    "Язык перевода": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Translation language"
+    "Добавьте слова вручную или загрузите файл со списком." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add words manually or import a list file."
           }
         }
       }
     },
-    "Готово": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Done"
+    "Ежедневное напоминание" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daily reminder"
           }
         }
       }
     },
-    "Языки колоды нельзя изменить после создания. Создайте новую колоду, если нужна другая пара.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deck languages cannot be changed after creation. Create a new deck for a different pair."
+    "Ещё" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More"
           }
         }
       }
     },
-    "Языки слова и перевода должны различаться.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Word and translation languages must differ."
+    "Закрыть сессию" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close session"
           }
         }
       }
     },
-    "В списке только языки, для которых в системе есть голос: их приложение сможет произнести.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Only languages with a system voice are listed, so the app can pronounce them."
+    "Засчитать как верный" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Count as correct"
           }
         }
       }
     },
-    "Все": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All"
+    "Засчитывается любой из переводов: %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Any of the translations is accepted: %@."
           }
         }
       }
     },
-    "Новые": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "New"
+    "Звук" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound"
           }
         }
       }
     },
-    "Учатся": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Learning"
+    "Значок" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icon"
           }
         }
       }
     },
-    "Выучено": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Learned"
+    "Знаю" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I know it"
           }
         }
       }
     },
-    "Фильтр": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Filter"
+    "Изменить" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
           }
         }
       }
     },
-    "%lld слов": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld words"
+    "Изучить новые" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn New"
           }
         }
       }
     },
-    "Поиск по словам и переводам": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Search words and translations"
+    "Или вставьте текст" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Or paste text"
           }
         }
       }
     },
-    "Колода пуста": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deck is empty"
+    "Импорт" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import"
           }
         }
       }
     },
-    "Добавьте слова вручную или загрузите файл со списком.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Add words manually or import a list file."
+    "Импортировать" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import"
           }
         }
       }
     },
-    "Добавить слово": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Add Word"
+    "Каждая строка: слово, затем перевод. Несколько переводов разделяются знаком «;»." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each line: word, then translation. Multiple translations are separated by “;”."
           }
         }
       }
     },
-    "Импортировать": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Import"
+    "Как улучшить голоса" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How to improve voices"
           }
         }
       }
     },
-    "Экспортировать": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Export"
+    "Кодировка UTF-8. Первая строка с заголовком необязательна. Разделитель — запятая или табуляция, определяется автоматически. Значения с запятой внутри заключаются в кавычки." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UTF-8 encoding. A header row is optional. The delimiter — comma or tab — is detected automatically. Values containing a comma are wrapped in quotes."
           }
         }
       }
     },
-    "Ещё": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "More"
+    "Колода" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deck"
           }
         }
       }
     },
-    "Переименовать": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rename"
+    "Колода пуста" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deck is empty"
           }
         }
       }
     },
-    "Файл JSON": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "JSON File"
+    "Колода с помощью ИИ" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deck with AI"
           }
         }
       }
     },
-    "Файл CSV": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "CSV File"
+    "Колода содержит %lld слов. Действие необратимо." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The deck contains %lld words. This cannot be undone."
           }
         }
       }
     },
-    "Удалить слово?": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete word?"
+    "Колоды" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Decks"
           }
         }
       }
     },
-    "«%@» будет удалено вместе с прогрессом.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "“%@” will be deleted along with its progress."
+    "На сегодня всё" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All done for today"
           }
         }
       }
     },
-    "Обязательно": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Required"
+    "Название" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
           }
         }
       }
     },
-    "Необязательно": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Optional"
+    "Напоминание приходит только в те дни, когда действительно есть что повторять." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A reminder is sent only on days when there is actually something to review."
           }
         }
       }
     },
-    "Переводы через ;": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Translations, separated by ;"
+    "Напоминания" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reminders"
           }
         }
       }
     },
-    "Транскрипция": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Transcription"
+    "Настройки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
           }
         }
       }
     },
-    "Пример": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Example"
+    "Не знаю" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I don't know"
           }
         }
       }
     },
-    "Перевод примера": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Example translation"
+    "Не найдено ни одной подходящей записи." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No valid entries found."
           }
         }
       }
     },
-    "Переводы": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Translations"
+    "Не удалось восстановить: %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore failed: %@"
           }
         }
       }
     },
-    "Ответ": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Answer"
+    "Не удалось прочитать файл" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't read the file"
           }
         }
       }
     },
-    "Артикль пишется вместе со словом: «der Hund». Тогда его нужно будет ввести при проверке.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Write the article together with the word: “der Hund”. You will need to type it when answering."
+    "Неверно" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wrong"
           }
         }
       }
     },
-    "Такое слово уже есть в колоде.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This word is already in the deck."
+    "Необязательно" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Optional"
           }
         }
       }
     },
-    "Вернуть в ротацию": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Return to rotation"
+    "Несколько переводов разделяются знаком «;» — при проверке засчитывается любой из них." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Multiple translations are separated by “;” — any of them is accepted."
           }
         }
       }
     },
-    "Сбросить прогресс": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reset progress"
+    "Нет активных колод" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No active decks"
           }
         }
       }
     },
-    "Слово ещё не изучалось.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This word hasn't been studied yet."
+    "Нечего повторять" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to review"
           }
         }
       }
     },
-    "Изменить": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Edit"
+    "Новая колода" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Deck"
           }
         }
       }
     },
-    "Сбросить прогресс по слову?": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reset word progress?"
+    "Новое слово" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Word"
           }
         }
       }
     },
-    "Сбросить": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reset"
+    "Новые" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New"
           }
         }
       }
     },
-    "Слово снова станет новым, история повторений будет обнулена.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The word becomes new again and its review history is cleared."
+    "Новые слова" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New words"
           }
         }
       }
     },
-    "Перевод → слово": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Translation → word"
+    "Новых повторений пока не запланировано." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No reviews scheduled yet."
           }
         }
       }
     },
-    "Слово → перевод": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Word → translation"
+    "Новых слов в день: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New words per day: %lld"
           }
         }
       }
     },
-    "новое": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "new"
+    "О приложении" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About"
           }
         }
       }
     },
-    "заучивается": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "learning"
+    "Обратный режим" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reverse mode"
           }
         }
       }
     },
-    "повторение": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "review"
+    "Обратный режим показывает слово и просит выбрать перевод из четырёх вариантов. Лимиты общие для всех активных колод." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reverse mode shows the word and asks you to pick the translation from four options. Limits are shared across all active decks."
           }
         }
       }
     },
-    "переучивается": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "relearning"
+    "Обучение" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learning"
           }
         }
       }
     },
-    "Следующий показ %@ · держится в памяти ≈ %lld дн.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Next shown %@ · retained ≈ %lld days"
+    "Обязательно" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Required"
           }
         }
       }
     },
-    "Выбрать файл": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Choose File"
+    "Обязательны только первые две колонки: слово и перевод. Остальные можно опустить." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only the first two columns are required: word and translation. The rest are optional."
           }
         }
       }
     },
-    "Поддерживаются CSV, TSV и JSON.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "CSV, TSV and JSON are supported."
+    "Ответ" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Answer"
           }
         }
       }
     },
-    "Или вставьте текст": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Or paste text"
+    "Отвеченные карточки уже сохранены. Остальные придут в следующий раз." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Answered cards are already saved. The rest will come next time."
           }
         }
       }
     },
-    "Каждая строка: слово, затем перевод. Несколько переводов разделяются знаком «;».": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Each line: word, then translation. Multiple translations are separated by “;”."
+    "Отмена" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
           }
         }
       }
     },
-    "Далее": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Next"
+    "Перевод примера" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Example translation"
           }
         }
       }
     },
-    "Не удалось прочитать файл": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Couldn't read the file"
+    "Переводы" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Translations"
           }
         }
       }
     },
-    "Понятно": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
+    "Переводы через ;" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Translations, separated by ;"
           }
         }
       }
     },
-    "Файл должен быть в кодировке UTF-8.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The file must be UTF-8 encoded."
+    "Перед импортом показывается сводка: сколько записей найдено и что пропущено." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Before importing, a summary shows how many entries were found and what was skipped."
           }
         }
       }
     },
-    "Будет добавлено": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Will be added"
+    "Переименовать" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rename"
           }
         }
       }
     },
-    "Пропущено": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Skipped"
+    "Повторений в день: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reviews per day: %lld"
           }
         }
       }
     },
-    "Не найдено ни одной подходящей записи.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No valid entries found."
+    "Повторить" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review"
           }
         }
       }
     },
-    "Новые слова": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "New words"
+    "Повтором считается строка с тем же словом и теми же переводами — она пропускается. То же слово с другим переводом (например, форма глагола) становится отдельной карточкой, поэтому синонимы пишутся в одной строке через «;»." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A row with the same word and the same translations is a duplicate and is skipped. The same word with a different translation (for example, a verb form) becomes a separate card, so synonyms go in one row separated by “;”."
           }
         }
       }
     },
-    "Пропущенные строки": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Skipped rows"
+    "Поддерживаются CSV, TSV и JSON." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CSV, TSV and JSON are supported."
           }
         }
       }
     },
-    "Строка %lld: %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Row %lld: %@"
+    "Поиск по словам и переводам" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search words and translations"
           }
         }
       }
     },
-    "Правила": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rules"
+    "Пока нет колод" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No decks yet"
           }
         }
       }
     },
-    "Обязательны только первые две колонки: слово и перевод. Остальные можно опустить.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Only the first two columns are required: word and translation. The rest are optional."
+    "Пока нечего повторять" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to review yet"
           }
         }
       }
     },
-    "Несколько переводов разделяются знаком «;» — при проверке засчитывается любой из них.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Multiple translations are separated by “;” — any of them is accepted."
+    "Показать формат файла" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show File Format"
           }
         }
       }
     },
-    "Артикль пишется вместе со словом: «der Hund».": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Write the article together with the word: “der Hund”."
+    "Понятно" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         }
       }
     },
-    "CSV или TSV": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "CSV or TSV"
+    "Почти верно" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Almost right"
           }
         }
       }
     },
-    "Скопировать образец": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Copy Sample"
+    "Правила" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rules"
           }
         }
       }
     },
-    "Кодировка UTF-8. Первая строка с заголовком необязательна. Разделитель — запятая или табуляция, определяется автоматически. Значения с запятой внутри заключаются в кавычки.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "UTF-8 encoding. A header row is optional. The delimiter — comma or tab — is detected automatically. Values containing a comma are wrapped in quotes."
+    "Правильное написание: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct spelling: %@"
           }
         }
       }
     },
-    "Тот же формат используется при экспорте, поэтому выгруженный файл загружается обратно без потерь.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The same format is used for export, so an exported file imports back without loss."
+    "Предпросмотр" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preview"
           }
         }
       }
     },
-    "Что будет пропущено": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "What gets skipped"
+    "Пример" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Example"
           }
         }
       }
     },
-    "Строки без слова или без перевода пропускаются.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rows without a word or translation are skipped."
+    "Проверить" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check"
           }
         }
       }
     },
-    "Слова, которые уже есть в колоде, пропускаются как повторы.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Words already in the deck are skipped as duplicates."
+    "Прогресс" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Progress"
           }
         }
       }
     },
-    "Перед импортом показывается сводка: сколько записей найдено и что пропущено.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Before importing, a summary shows how many entries were found and what was skipped."
+    "Прогресс сброшен." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Progress reset."
           }
         }
       }
     },
-    "Закрыть сессию": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Close session"
+    "Продолжить" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
           }
         }
       }
     },
-    "Выйти из сессии?": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Exit session?"
+    "Произнести слово" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pronounce word"
           }
         }
       }
     },
-    "Выйти": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Exit"
+    "Пропущенные строки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skipped rows"
           }
         }
       }
     },
-    "Продолжить": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Continue"
+    "Пропущено" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skipped"
           }
         }
       }
     },
-    "Отвеченные карточки уже сохранены. Остальные придут в следующий раз.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Answered cards are already saved. The rest will come next time."
+    "Размер блока: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Block size: %lld"
           }
         }
       }
     },
-    "Блок пройден": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Block complete"
+    "Резервная копия" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Backup"
           }
         }
       }
     },
-    "Верно %lld · с ошибкой %lld": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Correct %lld · wrong %lld"
+    "Сбросить" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
           }
         }
       }
     },
-    "Проверить": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Check"
+    "Сбросить весь прогресс" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset All Progress"
           }
         }
       }
     },
-    "Дальше": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Next"
+    "Сбросить весь прогресс?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset all progress?"
           }
         }
       }
     },
-    "Произнести слово": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pronounce word"
+    "Сбросить прогресс" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset progress"
           }
         }
       }
     },
-    "Верно": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Correct"
+    "Сбросить прогресс по слову?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset word progress?"
           }
         }
       }
     },
-    "Почти верно": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Almost right"
+    "Сессия завершена" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Session complete"
           }
         }
       }
     },
-    "Неверно": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wrong"
+    "Синхронизации нет: удаление приложения стирает весь прогресс. Резервная копия — единственная страховка." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is no sync: deleting the app erases all progress. A backup is the only safeguard."
           }
         }
       }
     },
-    "Правильное написание: %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Correct spelling: %@"
+    "Скопировать образец" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy Sample"
           }
         }
       }
     },
-    "Засчитать как верный": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Count as correct"
+    "Скопировать промпт" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy Prompt"
           }
         }
       }
     },
-    "Знаю": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "I know it"
+    "Следующее повторение %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next review %@."
           }
         }
       }
     },
-    "Не знаю": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "I don't know"
+    "Следующий показ %@ · держится в памяти ≈ %lld дн." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next shown %@ · retained ≈ %lld days"
           }
         }
       }
     },
-    "«Знаю» нужно будет подтвердить: приложение попросит напечатать слово.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "“I know it” must be confirmed: the app will ask you to type the word."
+    "Слова останутся, но все карточки снова станут новыми." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Words stay, but all cards become new again."
           }
         }
       }
     },
-    "Без единой ошибки": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Flawless"
+    "Слова произносятся по нажатию кнопки. Из коробки установлены упрощённые голоса; улучшенные скачиваются в системных настройках, приложение сделать это за вас не может." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Words are spoken on tap. Compact voices are installed by default; enhanced ones are downloaded in system settings — the app can't do it for you."
           }
         }
       }
     },
-    "Сессия завершена": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Session complete"
+    "Слово" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Word"
           }
         }
       }
     },
-    "Нечего повторять": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nothing to review"
+    "Слово ещё не изучалось." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This word hasn't been studied yet."
           }
         }
       }
     },
-    "Все карточки на сегодня уже пройдены.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All cards for today are done."
+    "Слово снова станет новым, история повторений будет обнулена." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The word becomes new again and its review history is cleared."
           }
         }
       }
     },
-    "верно": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "correct"
+    "Создайте колоду и добавьте слова вручную или загрузите готовый файл." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a deck and add words manually or import a file."
           }
         }
       }
     },
-    "с ошибкой": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "wrong"
+    "Создайте колоду на вкладке «Колоды» или включите существующую." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a deck on the Decks tab or enable an existing one."
           }
         }
       }
     },
-    "Стоит повторить": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Worth reviewing"
+    "Создать колоду" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Deck"
           }
         }
       }
     },
-    "Обучение": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Learning"
+    "Составь колоду карточек для приложения Recards.\n\nИзучаемый язык: [например, немецкий]. Язык перевода: [например, русский]. Тема и уровень: [например, еда, A1]. Количество слов: [например, 50].\n\nФормат — CSV в UTF-8, первая строка — заголовок:\nword,translation,transcription,example,exampleTranslation\n\nПравила:\n- word — слово на изучаемом языке. Существительные пиши с артиклем, если он есть в языке: der Hund.\n- translation — перевод. Несколько переводов (синонимы) — в одном поле через точку с запятой: собака;пёс. Не разноси синонимы по разным строкам.\n- transcription — IPA в косых чертах: /hʊnt/. Для форм глагола оставляй пустым.\n- example и exampleTranslation — короткий пример со словом и его перевод. Для форм глагола оставляй пустыми.\n- Значения с запятой внутри заключай в двойные кавычки.\n- Глаголы: сначала инфинитив отдельной строкой с обычным переводом (lesen,читать). Затем каждая форма настоящего времени — своей строкой, без местоимения, а лица указаны в скобках в переводе: lese,читать (ich).\n- Для немецкого группы лиц такие: ich; du; er/sie/es; ihr; wir/sie/Sie. Строка wir/sie/Sie нужна, даже если её форма совпадает с инфинитивом.\n- Для других языков группируй лица по их грамматике: лица с одинаковой формой — в одной строке через косую черту, а если формы для «он» и «она» различаются, это разные строки.\n- Одинаковое слово с разными переводами — это нормально (will для ich и для er/sie/es). Не повторяй только строки, где совпадают и слово, и перевод.\n\nВыведи только CSV, без пояснений." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a flashcard deck for the Recards app.\n\nLanguage to learn: [e.g., German]. Translation language: [e.g., English]. Topic and level: [e.g., food, A1]. Number of words: [e.g., 50].\n\nFormat: CSV in UTF-8, the first line is the header:\nword,translation,transcription,example,exampleTranslation\n\nRules:\n- word is the word in the language being learned. Write nouns with their article if the language has one: der Hund.\n- translation is the translation. Several translations (synonyms) go in one field separated by semicolons: dog;hound. Do not split synonyms across rows.\n- transcription is IPA between slashes: /hʊnt/. Leave it empty for verb forms.\n- example and exampleTranslation are a short example with the word and its translation. Leave them empty for verb forms.\n- Wrap values that contain a comma in double quotes.\n- Verbs: first the infinitive on its own row with a plain translation (lesen,to read). Then each present-tense form on its own row, without the pronoun, with the persons in parentheses in the translation: lese,to read (ich).\n- For German, the person groups are: ich; du; er/sie/es; ihr; wir/sie/Sie. The wir/sie/Sie row is required even if its form matches the infinitive.\n- For other languages, group persons according to their grammar: persons with the same form go in one row separated by a slash, and if the forms for \"he\" and \"she\" differ, they are separate rows.\n- The same word with different translations is fine (will for ich and for er/sie/es). Only avoid rows where both the word and the translation repeat.\n\nOutput only the CSV, with no explanations."
           }
         }
       }
     },
-    "Новых слов в день: %lld": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "New words per day: %lld"
+    "Состояние" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Status"
           }
         }
       }
     },
-    "Повторений в день: %lld": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reviews per day: %lld"
+    "Стоит повторить" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Worth reviewing"
           }
         }
       }
     },
-    "Размер блока: %lld": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Block size: %lld"
+    "Строка %lld: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Row %lld: %@"
           }
         }
       }
     },
-    "Обратный режим": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reverse mode"
+    "Строки без слова или без перевода пропускаются." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rows without a word or translation are skipped."
           }
         }
       }
     },
-    "Обратный режим показывает слово и просит выбрать перевод из четырёх вариантов. Лимиты общие для всех активных колод.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reverse mode shows the word and asks you to pick the translation from four options. Limits are shared across all active decks."
+    "Такое слово уже есть в колоде." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This word is already in the deck."
           }
         }
       }
     },
-    "Звук": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sound"
+    "Текущие данные будут заменены: %lld колод, %lld слов." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current data will be replaced: %lld decks, %lld words."
           }
         }
       }
     },
-    "Как улучшить голоса": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "How to improve voices"
+    "Тот же формат используется при экспорте, поэтому выгруженный файл загружается обратно без потерь." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The same format is used for export, so an exported file imports back without loss."
           }
         }
       }
     },
-    "Слова произносятся по нажатию кнопки. Из коробки установлены упрощённые голоса; улучшенные скачиваются в системных настройках, приложение сделать это за вас не может.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Words are spoken on tap. Compact voices are installed by default; enhanced ones are downloaded in system settings — the app can't do it for you."
+    "Транскрипция" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcription"
           }
         }
       }
     },
-    "Напоминания": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reminders"
+    "Уведомления запрещены в системных настройках. Разрешите их, чтобы получать напоминания." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications are disabled in system settings. Enable them to receive reminders."
           }
         }
       }
     },
-    "Ежедневное напоминание": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Daily reminder"
+    "Удалить" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
           }
         }
       }
     },
-    "Время": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Time"
+    "Удалить все данные" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete All Data"
           }
         }
       }
     },
-    "Уведомления запрещены в системных настройках. Разрешите их, чтобы получать напоминания.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Notifications are disabled in system settings. Enable them to receive reminders."
+    "Удалить все данные?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete all data?"
           }
         }
       }
     },
-    "Напоминание приходит только в те дни, когда действительно есть что повторять.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A reminder is sent only on days when there is actually something to review."
+    "Удалить всё" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Everything"
           }
         }
       }
     },
-    "Данные": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Data"
+    "Удалить колоду «%@»?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete deck “%@”?"
           }
         }
       }
     },
-    "Резервная копия": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Backup"
+    "Удалить слово?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete word?"
           }
         }
       }
     },
-    "Восстановить из копии": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore from Backup"
+    "Учатся" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learning"
           }
         }
       }
     },
-    "Сбросить весь прогресс": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reset All Progress"
+    "Учить" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn"
           }
         }
       }
     },
-    "Удалить все данные": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete All Data"
+    "Файл CSV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CSV File"
           }
         }
       }
     },
-    "Синхронизации нет: удаление приложения стирает весь прогресс. Резервная копия — единственная страховка.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "There is no sync: deleting the app erases all progress. A backup is the only safeguard."
+    "Файл JSON" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JSON File"
           }
         }
       }
     },
-    "Восстановить из копии?": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore from backup?"
+    "Файл должен быть в кодировке UTF-8." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file must be UTF-8 encoded."
           }
         }
       }
     },
-    "Восстановить": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore"
+    "Файл не похож на резервную копию Recards." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file doesn't look like a Recards backup."
           }
         }
       }
     },
-    "Текущие данные будут заменены: %lld колод, %lld слов.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Current data will be replaced: %lld decks, %lld words."
+    "Фильтр" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter"
           }
         }
       }
     },
-    "Сбросить весь прогресс?": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reset all progress?"
+    "Формат файла" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File Format"
           }
         }
       }
     },
-    "Слова останутся, но все карточки снова станут новыми.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Words stay, but all cards become new again."
+    "Что будет пропущено" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What gets skipped"
           }
         }
       }
     },
-    "Удалить все данные?": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete all data?"
+    "Экспортировать" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export"
           }
         }
       }
     },
-    "Удалить всё": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete Everything"
+    "Язык интерфейса" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App language"
           }
         }
       }
     },
-    "Будут удалены все колоды, слова и история. Действие необратимо.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All decks, words and history will be deleted. This cannot be undone."
+    "Язык интерфейса меняется в системных настройках приложения." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The app language is changed in the system settings for the app."
           }
         }
       }
     },
-    "О приложении": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "About"
+    "Язык перевода" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Translation language"
           }
         }
       }
     },
-    "Язык интерфейса": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "App language"
+    "Язык слова" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Word language"
           }
         }
       }
     },
-    "Версия": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Version"
+    "Языки" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Languages"
           }
         }
       }
     },
-    "Язык интерфейса меняется в системных настройках приложения.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The app language is changed in the system settings for the app."
+    "Языки колоды нельзя изменить после создания. Создайте новую колоду, если нужна другая пара." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deck languages cannot be changed after creation. Create a new deck for a different pair."
           }
         }
       }
     },
-    "Данные восстановлены.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Data restored."
+    "Языки слова и перевода должны различаться." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Word and translation languages must differ."
           }
         }
       }
     },
-    "Не удалось восстановить: %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore failed: %@"
+    "верно" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "correct"
           }
         }
       }
     },
-    "Прогресс сброшен.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Progress reset."
+    "выучено" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "learned"
           }
         }
       }
     },
-    "Все данные удалены.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All data deleted."
+    "заучивается" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "learning"
           }
         }
       }
     },
-    "Файл не похож на резервную копию Recards.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The file doesn't look like a Recards backup."
+    "к повторению" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "to review"
           }
         }
       }
     },
-    "учится": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "learning"
+    "новое" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "new"
           }
         }
       }
-    }
+    },
+    "новых" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "new"
+          }
+        }
+      }
+    },
+    "переучивается" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "relearning"
+          }
+        }
+      }
+    },
+    "повторение" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "review"
+          }
+        }
+      }
+    },
+    "с ошибкой" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "wrong"
+          }
+        }
+      }
+    },
+    "учится" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "learning"
+          }
+        }
+      }
+    },
+    "📘" : {}
   },
-  "version": "1.0"
+  "version" : "1.0"
 }

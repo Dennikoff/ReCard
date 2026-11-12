@@ -84,7 +84,7 @@ struct SessionView: View {
             NewWordView(model: model)
 
         case .asking, .answered:
-            if model.currentCard?.direction == .recognition {
+            if model.currentDirection == .recognition {
                 RecognitionCardView(model: model)
             } else {
                 ProductionCardView(model: model)

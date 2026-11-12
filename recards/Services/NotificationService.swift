@@ -62,7 +62,7 @@ enum NotificationService {
         // Карточки, не выведенные из ротации: их сроки и определяют дни напоминаний.
         let dueDates = SessionService.activeDecks(in: context)
             .flatMap(\.sortedWords)
-            .flatMap { $0.cards ?? [] }
+            .compactMap(\.card)
             .filter { !$0.isArchived }
             .map(\.due)
 

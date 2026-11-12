@@ -31,7 +31,7 @@ final class ReLog {
         grade: ReRating,
         state: ReCardState,
         direction: CardDirection,
-        reviewedAt: Date = Date(),
+        reviewedAt: Date = AppClock.now,
         elapsedDays: Double = 0,
         scheduledDays: Double = 0,
         responseTimeMS: Int = 0

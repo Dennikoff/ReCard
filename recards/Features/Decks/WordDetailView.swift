@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftData
 
-/// Карточка слова: содержимое, состояние обеих карточек повторения и управление прогрессом.
+/// Карточка слова: содержимое, состояние повторения и управление прогрессом.
 struct WordDetailView: View {
     @Environment(\.modelContext) private var context
     @Bindable var word: Word
@@ -28,11 +28,9 @@ struct WordDetailView: View {
                 }
             }
 
-            Section("Прогресс") {
-                ForEach(CardDirection.allCases, id: \.self) { direction in
-                    if let card = word.card(for: direction) {
-                        CardProgressRow(card: card, direction: direction)
-                    }
+            if let card = word.card {
+                Section("Прогресс") {
+                    CardProgressRow(card: card)
                 }
             }
 
@@ -76,13 +74,11 @@ struct WordDetailView: View {
 
     private func resetProgress() {
         word.startedAt = nil
-        for card in word.cards ?? [] {
-            card.resetProgress()
-        }
+        word.card?.resetProgress()
     }
 
     private func returnToRotation() {
-        for card in word.cards ?? [] where card.isArchived {
+        if let card = word.card, card.isArchived {
             card.resetProgress()
         }
     }
@@ -92,19 +88,11 @@ struct WordDetailView: View {
 
 private struct CardProgressRow: View {
     let card: ReCard
-    let direction: CardDirection
-
-    private var title: LocalizedStringKey {
-        switch direction {
-        case .production: return "Перевод → слово"
-        case .recognition: return "Слово → перевод"
-        }
-    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
-                Text(title).font(.subheadline)
+                Text("Состояние").font(.subheadline)
                 Spacer()
                 Text(statusText)
                     .font(.caption)
@@ -139,7 +127,7 @@ private struct CardProgressRow: View {
     private var dueDescription: String {
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .full
-        let next = formatter.localizedString(for: card.due, relativeTo: Date())
+        let next = formatter.localizedString(for: card.due, relativeTo: AppClock.now)
         let retention = Int(card.stability.rounded())
         return "Следующий показ \(next) · держится в памяти ≈ \(retention) дн."
     }

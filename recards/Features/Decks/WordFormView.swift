@@ -74,6 +74,7 @@ struct WordFormView: View {
         }
         .task { loadInitialState() }
         .onChange(of: text) { _, _ in checkDuplicate() }
+        .onChange(of: translationsText) { _, _ in checkDuplicate() }
     }
 
     private func loadInitialState() {
@@ -90,11 +91,13 @@ struct WordFormView: View {
         let container = deck ?? word?.deck
         guard let container else { duplicateWarning = nil; return }
 
-        let key = AnswerChecker.normalize(text)
-        guard !key.isEmpty else { duplicateWarning = nil; return }
+        guard !AnswerChecker.normalize(text).isEmpty else { duplicateWarning = nil; return }
 
+        // Дубликат — то же слово с тем же набором переводов. Одинаковый текст
+        // с другими переводами допустим: формы глагола, омонимы.
+        let key = WordKey.make(text: text, translations: translations)
         let clash = (container.words ?? []).contains {
-            $0.id != word?.id && AnswerChecker.normalize($0.text) == key
+            $0.id != word?.id && WordKey.make(text: $0.text, translations: $0.translations) == key
         }
         duplicateWarning = clash ? "Такое слово уже есть в колоде." : nil
     }
@@ -124,7 +127,7 @@ struct WordFormView: View {
             word.deck = deck
             context.insert(word)
             deck.words = (deck.words ?? []) + [word]
-            word.ensureCards()
+            word.ensureCard()
         }
 
         dismiss()

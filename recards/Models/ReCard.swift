@@ -27,7 +27,7 @@ final class ReCard {
 
     var word: Word?
 
-    init(direction: CardDirection, due: Date = Date()) {
+    init(direction: CardDirection, due: Date = AppClock.now) {
         self.id = UUID()
         self.directionRaw = direction.rawValue
         self.due = due
@@ -80,7 +80,7 @@ extension ReCard {
     }
 
     /// Возвращает карточку в ротацию, сбрасывая состояние в начальное.
-    func resetProgress(now: Date = Date()) {
+    func resetProgress(now: Date = AppClock.now) {
         isArchived = false
         due = now
         stability = 0

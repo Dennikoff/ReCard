@@ -143,7 +143,7 @@ struct ImportDuplicateTests {
 
     @Test("Повтор внутри файла пропускается")
     func duplicateInFile() {
-        let result = ImportService.parse("der Hund,собака\nder Hund,пёс")
+        let result = ImportService.parse("der Hund,собака\nder Hund,собака")
 
         #expect(result.words.count == 1)
         #expect(result.skipped.count == 1)
@@ -152,7 +152,7 @@ struct ImportDuplicateTests {
 
     @Test("Слово, уже имеющееся в колоде, пропускается")
     func duplicateInDeck() {
-        let existing: Set<String> = [AnswerChecker.normalize("der Hund")]
+        let existing: Set<String> = [WordKey.make(text: "der Hund", translations: ["собака"])]
         let result = ImportService.parse("der Hund,собака\ndie Katze,кошка", existing: existing)
 
         #expect(result.words.count == 1)
@@ -163,10 +163,28 @@ struct ImportDuplicateTests {
     @Test("Дубликаты определяются по тем же правилам, что и проверка ответа")
     func duplicatesUseAnswerNormalization() {
         // Регистр и написание умлаута не должны порождать вторую копию слова.
-        let result = ImportService.parse("über,над\nUEBER,сверху")
+        let result = ImportService.parse("über,над\nUEBER,НАД")
 
         #expect(result.words.count == 1)
         #expect(result.skipped[0].reason == .duplicateInFile)
+    }
+
+    @Test("Одинаковый текст с разными переводами — разные слова")
+    func sameTextDifferentTranslationsIsNotDuplicate() {
+        // Совпадающие формы глагола и омонимы должны уживаться в одной колоде.
+        let result = ImportService.parse("will,хотеть (ich)\nwill,хотеть (er/sie/es)\ndie Bank,банк\ndie Bank,скамейка")
+
+        #expect(result.words.count == 4)
+        #expect(result.skipped.isEmpty)
+    }
+
+    @Test("Порядок и регистр переводов не делают слово новым")
+    func translationOrderDoesNotMatter() {
+        let existing: Set<String> = [WordKey.make(text: "der Hund", translations: ["собака", "пёс"])]
+        let result = ImportService.parse("der Hund\tПёс; собака", existing: existing)
+
+        #expect(result.words.isEmpty)
+        #expect(result.skipped.first?.reason == .duplicateInDeck)
     }
 }
 

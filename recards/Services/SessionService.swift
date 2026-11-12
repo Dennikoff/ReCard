@@ -18,7 +18,7 @@ enum SessionService {
     // MARK: - Дневные лимиты
 
     /// Сколько новых слов уже начато сегодня.
-    static func newWordsStartedToday(in context: ModelContext, now: Date = Date()) -> Int {
+    static func newWordsStartedToday(in context: ModelContext, now: Date = AppClock.now) -> Int {
         let start = Calendar.current.startOfDay(for: now)
         // #Predicate принимает только одно выражение, поэтому вместо `if let`
         // используется подстановка заведомо давней даты. Значение вынесено в переменную:
@@ -32,8 +32,11 @@ enum SessionService {
         return (try? context.fetchCount(descriptor)) ?? 0
     }
 
-    /// Сколько повторений уже сделано сегодня. Первые показы новых слов не считаются.
-    static func reviewsDoneToday(in context: ModelContext, now: Date = Date()) -> Int {
+    /// Сколько слов уже повторено сегодня. Первые показы новых слов не считаются.
+    ///
+    /// Считаются слова, а не записи журнала: на одно повторение слова приходится
+    /// по записи на каждое упражнение и на каждую повторную попытку после ошибки.
+    static func reviewsDoneToday(in context: ModelContext, now: Date = AppClock.now) -> Int {
         let start = Calendar.current.startOfDay(for: now)
         let newState = ReCardState.new.rawValue
         let descriptor = FetchDescriptor<ReLog>(
@@ -41,14 +44,15 @@ enum SessionService {
                 log.reviewedAt >= start && log.stateRaw != newState
             }
         )
-        return (try? context.fetchCount(descriptor)) ?? 0
+        let logs = (try? context.fetch(descriptor)) ?? []
+        return Set(logs.map(\.wordID)).count
     }
 
-    static func remainingNewWords(in context: ModelContext, now: Date = Date()) -> Int {
+    static func remainingNewWords(in context: ModelContext, now: Date = AppClock.now) -> Int {
         max(0, AppSettings.newWordsPerDay - newWordsStartedToday(in: context, now: now))
     }
 
-    static func remainingReviews(in context: ModelContext, now: Date = Date()) -> Int {
+    static func remainingReviews(in context: ModelContext, now: Date = AppClock.now) -> Int {
         max(0, AppSettings.reviewsPerDay - reviewsDoneToday(in: context, now: now))
     }
 
@@ -64,27 +68,27 @@ enum SessionService {
             .filter(\.isNew)
     }
 
-    /// Карточки, срок показа которых наступил.
-    static func dueCards(in context: ModelContext, deck: Deck? = nil, now: Date = Date()) -> [ReCard] {
+    /// Карточки, срок показа которых наступил. Одна карточка — одно слово.
+    static func dueCards(in context: ModelContext, deck: Deck? = nil, now: Date = AppClock.now) -> [ReCard] {
         let decks = deck.map { [$0] } ?? activeDecks(in: context)
-        let recognitionEnabled = AppSettings.recognitionEnabled
-
         return decks
             .flatMap(\.sortedWords)
             .filter { !$0.isNew }
-            .flatMap { $0.cards ?? [] }
-            .filter { card in
-                guard !card.isArchived, card.due <= now else { return false }
-                return recognitionEnabled || card.direction == .production
-            }
+            .compactMap(\.card)
+            .filter { !$0.isArchived && $0.due <= now }
             .sorted { $0.due < $1.due }
     }
 
+    /// Упражнения, которыми проверяется каждое слово при повторении.
+    static var reviewDirections: [CardDirection] {
+        AppSettings.recognitionEnabled ? [.production, .recognition] : [.production]
+    }
+
     /// Ближайший срок показа среди неархивированных карточек — для подсказки «приходи через N часов».
-    static func nextDueDate(in context: ModelContext, now: Date = Date()) -> Date? {
+    static func nextDueDate(in context: ModelContext, now: Date = AppClock.now) -> Date? {
         activeDecks(in: context)
             .flatMap(\.sortedWords)
-            .flatMap { $0.cards ?? [] }
+            .compactMap(\.card)
             .filter { !$0.isArchived && $0.due > now }
             .map(\.due)
             .min()
@@ -103,7 +107,7 @@ enum SessionService {
         var canReview: Bool { dueNow > 0 }
     }
 
-    static func summary(in context: ModelContext, now: Date = Date()) -> Summary {
+    static func summary(in context: ModelContext, now: Date = AppClock.now) -> Summary {
         let decks = activeDecks(in: context)
         let words = decks.flatMap(\.sortedWords)
 
@@ -127,10 +131,23 @@ enum SessionService {
 
     // MARK: - Отвлекающие варианты
 
+    /// Переводы, которые засчитываются в режиме выбора: свои и всех слов колоды
+    /// с тем же текстом. Совпадающие формы (`will` для ich и для er/sie/es) на экране
+    /// неотличимы, поэтому верен перевод любой из них — среди вариантов их может быть два.
+    static func acceptedTranslations(for word: Word) -> [String] {
+        let key = AnswerChecker.normalize(word.text)
+        let twins = (word.deck?.words ?? []).filter {
+            $0.id != word.id && AnswerChecker.normalize($0.text) == key
+        }
+        return word.translations + twins.flatMap(\.translations)
+    }
+
     /// Три неверных варианта перевода для режима выбора.
     ///
     /// Берутся из той же колоды; если слов не хватает — из остальных активных колод.
     /// При совсем маленькой колоде вариантов будет меньше четырёх, но не меньше двух.
+    /// Перевод слова с тем же текстом намеренно не исключается: он тоже засчитывается
+    /// (см. `acceptedTranslations(for:)`), и тогда верных вариантов на экране два.
     static func distractors(
         for word: Word,
         in context: ModelContext,

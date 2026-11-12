@@ -48,7 +48,7 @@ nonisolated enum ImportService {
 
     // MARK: - Точка входа
 
-    /// - Parameter existing: нормализованные тексты слов, уже присутствующих в колоде.
+    /// - Parameter existing: ключи `WordKey` слов, уже присутствующих в колоде.
     static func parse(_ input: String, existing: Set<String> = []) -> ImportResult {
         let trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return ImportResult() }
@@ -166,7 +166,7 @@ nonisolated enum ImportService {
                 continue
             }
 
-            let key = AnswerChecker.normalize(payload.word)
+            let key = WordKey.make(text: payload.word, translations: payload.translations)
             guard !seen.contains(key) else {
                 let reason: SkipReason = existing.contains(key) ? .duplicateInDeck : .duplicateInFile
                 skipped.append(SkippedRow(line: line, content: content, reason: reason))

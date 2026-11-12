@@ -184,7 +184,7 @@ struct ImportPreviewView: View {
             word.deck = deck
             context.insert(word)
             deck.words = (deck.words ?? []) + [word]
-            word.ensureCards()
+            word.ensureCard()
         }
         onFinish()
     }

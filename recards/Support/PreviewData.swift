@@ -30,7 +30,7 @@ enum PreviewData {
             word.deck = deck
             container.mainContext.insert(word)
             deck.words = (deck.words ?? []) + [word]
-            word.ensureCards()
+            word.ensureCard()
         }
 
         return container

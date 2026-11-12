@@ -61,3 +61,18 @@ nonisolated extension WordPayload {
         )
     }
 }
+
+/// Ключ для отсева дубликатов: нормализованный текст слова вместе с набором переводов.
+///
+/// Слова с одинаковым текстом, но разными переводами — разные слова. Так в колоде
+/// уживаются совпадающие формы глагола (`will` — «хотеть (ich)» и «хотеть (er/sie/es)»)
+/// и омонимы (`die Bank` — «банк» и «скамейка»). Порядок переводов значения не имеет.
+nonisolated enum WordKey {
+    static func make(text: String, translations: [String]) -> String {
+        let normalizedTranslations = Set(translations.map(AnswerChecker.normalize))
+            .filter { !$0.isEmpty }
+            .sorted()
+        // Разделитель — управляющий символ, который не встречается в тексте слов.
+        return ([AnswerChecker.normalize(text)] + normalizedTranslations).joined(separator: "\u{1F}")
+    }
+}
